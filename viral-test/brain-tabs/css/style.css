@@ -1,0 +1,237 @@
+/* ============================================
+   뇌 속 브라우저 탭 - 전용 스타일
+   ============================================ */
+
+/* === 결과: 브라우저 탭 UI === */
+.browser-window {
+    background: #1e1e2e;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    margin: 24px 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 브라우저 상단 바 */
+.browser-top-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: #2a2a3e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.browser-dots {
+    display: flex;
+    gap: 6px;
+    margin-right: 12px;
+}
+
+.browser-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.browser-dot.red { background: #ff5f57; }
+.browser-dot.yellow { background: #ffbd2e; }
+.browser-dot.green { background: #28c940; }
+
+.browser-title-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex: 1;
+    text-align: center;
+}
+
+/* 탭 바 영역 */
+.tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 6px 6px 0;
+    background: #252538;
+    overflow: hidden;
+}
+
+.tab-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #1e1e2e;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: none;
+    animation: tabAppear 0.3s ease forwards;
+    opacity: 0;
+}
+
+.tab-item.active-tab {
+    background: #2a2a3e;
+    color: var(--text-primary);
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.tab-item .tab-favicon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.tab-item .tab-close {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+@keyframes tabAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 브라우저 콘텐츠 영역 */
+.browser-content {
+    padding: 24px 20px;
+    background: #1e1e2e;
+    text-align: center;
+}
+
+.browser-address-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #14141e;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.browser-address-bar .lock-icon {
+    color: var(--neon-green);
+}
+
+.result-main-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.result-sub-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* RAM 사용량 바 */
+.ram-usage {
+    margin-top: 20px;
+    padding: 16px;
+    background: #14141e;
+    border-radius: 10px;
+}
+
+.ram-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.ram-bar {
+    height: 8px;
+    background: #2a2a3e;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.ram-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1.5s ease;
+}
+
+.ram-fill.high { background: linear-gradient(90deg, #ef4444, #f97316); }
+.ram-fill.medium { background: linear-gradient(90deg, #f59e0b, #eab308); }
+.ram-fill.low { background: linear-gradient(90deg, #10b981, #06b6d4); }
+
+/* 결과 특성 태그 */
+.trait-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.trait-tag {
+    padding: 6px 14px;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--neon-purple);
+}
+
+/* 결과 카드 (캡처용) */
+#resultCapture {
+    padding: 20px;
+    background: var(--bg-primary);
+}
+
+/* 탭 개수 카운터 애니메이션 */
+.tab-count-display {
+    font-size: 4rem;
+    font-weight: 900;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 16px 0 8px;
+    line-height: 1;
+}
+
+.tab-count-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* 궁합 섹션 */
+.compatibility {
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.compatibility h4 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.compatibility .good-match,
+.compatibility .bad-match {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}

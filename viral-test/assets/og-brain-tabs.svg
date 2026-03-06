@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a"/>
+      <stop offset="100%" style="stop-color:#1a0a2e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#a855f7"/>
+      <stop offset="100%" style="stop-color:#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)"/>
+  <text x="600" y="200" text-anchor="middle" font-family="sans-serif" font-size="80" fill="white">🧠</text>
+  <text x="600" y="310" text-anchor="middle" font-family="sans-serif" font-size="56" font-weight="bold" fill="white">나의 뇌 속 브라우저 탭</text>
+  <text x="600" y="380" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#a0a0b0">당신의 뇌에는 지금 탭이 몇 개 열려있을까?</text>
+  <rect x="450" y="430" width="300" height="50" rx="25" fill="url(#accent)"/>
+  <text x="600" y="462" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="white">테스트 시작하기</text>
+  <text x="600" y="570" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#666">찐테스트 | jjin-test.com</text>
+</svg>

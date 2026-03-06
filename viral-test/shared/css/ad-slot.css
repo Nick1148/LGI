@@ -1,0 +1,25 @@
+/* ============================================
+   광고 슬롯 스타일
+   현재: 빈 상태 (다른 테스트 추천으로 활용)
+   추후: AdSense/애드핏 코드 삽입 시 활성화
+   ============================================ */
+
+.ad-slot {
+    margin: 24px 0;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    transition: min-height 0.3s ease;
+}
+
+/* 광고 활성화 시 최소 높이 확보 */
+.ad-slot.active {
+    min-height: 100px;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* 광고 비활성화 시 완전히 숨김 */
+.ad-slot:empty {
+    display: none;
+}
