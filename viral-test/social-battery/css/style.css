@@ -1,5 +1,5 @@
 /* ============================================
-   사회적 배터리 - 전용 스타일 (귀여운 파스텔 테마)
+   사회적 배터리 - 전용 스타일 (프리미엄 파스텔 테마)
    ============================================ */
 
 /* === 귀여운 테마 CSS 변수 오버라이드 === */
@@ -29,24 +29,52 @@
     color: var(--text-primary);
 }
 
-/* 귀여운 테마 - 옵션 버튼 */
+/* 귀여운 테마 - 옵션 버튼 (이모지 카드형) */
 .cute-theme .option-btn {
     background: #FFFFFF;
     border: 1.5px solid rgba(192, 132, 252, 0.12);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(192, 132, 252, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(249, 168, 212, 0.05), rgba(192, 132, 252, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .cute-theme .option-btn:hover {
     background: #FFF5F7;
     border-color: var(--neon-pink);
     box-shadow: 0 4px 16px rgba(249, 168, 212, 0.18);
+    transform: translateY(-2px);
+}
+
+.cute-theme .option-btn:hover::before {
+    opacity: 1;
 }
 
 .cute-theme .option-btn.selected {
     background: rgba(249, 168, 212, 0.1);
     border-color: var(--neon-pink);
     box-shadow: 0 4px 16px rgba(249, 168, 212, 0.2);
+    transform: scale(1.02);
+}
+
+.cute-theme .option-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-pink);
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
 /* 귀여운 테마 - 질문 카드 */
@@ -54,6 +82,18 @@
     background: #FFFFFF;
     border: 1.5px solid rgba(192, 132, 252, 0.1);
     box-shadow: 0 4px 20px rgba(192, 132, 252, 0.06);
+    position: relative;
+}
+
+.cute-theme .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-main);
+    border-radius: 24px 24px 0 0;
 }
 
 /* 귀여운 테마 - 프로그레스 */
@@ -63,12 +103,52 @@
 
 .cute-theme .progress-bar {
     background: rgba(192, 132, 252, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 프로그레스 바에 충전 아이콘 */
+.cute-theme .progress-fill {
+    position: relative;
+}
+
+.cute-theme .progress-fill::after {
+    content: '⚡';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6rem;
+    filter: drop-shadow(0 0 2px rgba(249, 168, 212, 0.5));
 }
 
 /* 귀여운 테마 - 시작 버튼 */
 .cute-theme .start-btn {
     box-shadow: 0 4px 20px rgba(249, 168, 212, 0.3);
     border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .start-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    animation: btnShine 3s ease-in-out infinite;
+}
+
+@keyframes btnShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
 }
 
 .cute-theme .start-btn:hover {
@@ -88,30 +168,85 @@
     box-shadow: 0 4px 20px rgba(249, 168, 212, 0.2);
 }
 
-/* === 배터리 UI === */
+/* ============================================
+   배터리 UI - 프리미엄 리디자인
+   ============================================ */
+
 .battery-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 24px 0;
+    position: relative;
 }
 
+/* 배터리 주변 떠다니는 파티클 */
+.battery-container::before,
+.battery-container::after {
+    position: absolute;
+    font-size: 1rem;
+    animation: floatParticle 3s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.battery-container::before {
+    content: '⚡';
+    top: 20px;
+    left: 10px;
+    animation-delay: 0s;
+}
+
+.battery-container::after {
+    content: '✨';
+    top: 40px;
+    right: 10px;
+    animation-delay: 1.5s;
+}
+
+@keyframes floatParticle {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-12px) scale(1.2); opacity: 1; }
+}
+
+/* 둥근 알약형 배터리 */
 .battery-outer {
     position: relative;
-    width: 140px;
-    height: 260px;
-    border: 4px solid rgba(192, 132, 252, 0.25);
-    border-radius: 16px;
+    width: 120px;
+    height: 220px;
+    border: none;
+    border-radius: 60px;
     overflow: hidden;
-    background: #FFF0F3;
+    background: linear-gradient(180deg, #FFF5F7, #FFF0F3);
+    box-shadow:
+        0 0 0 3px rgba(192, 132, 252, 0.15),
+        0 8px 32px rgba(192, 132, 252, 0.12),
+        inset 0 2px 8px rgba(192, 132, 252, 0.06);
 }
 
+/* 귀여운 둥근 배터리 캡 */
 .battery-cap {
-    width: 50px;
-    height: 12px;
-    background: rgba(192, 132, 252, 0.25);
-    border-radius: 4px 4px 0 0;
-    margin: 0 auto 8px;
+    width: 40px;
+    height: 14px;
+    background: linear-gradient(90deg, #E9D5FF, #FBCFE8);
+    border-radius: 8px 8px 4px 4px;
+    margin: 0 auto 6px;
+    box-shadow: 0 2px 8px rgba(192, 132, 252, 0.15);
+    position: relative;
+}
+
+.battery-cap::after {
+    content: '⚡';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    animation: capBounce 2s ease-in-out infinite;
+}
+
+@keyframes capBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-4px); }
 }
 
 .battery-fill {
@@ -121,16 +256,16 @@
     right: 0;
     transition: height 2s cubic-bezier(0.4, 0, 0.2, 1),
                 background 1s ease;
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 57px 57px;
 }
 
-/* 파스텔 배터리 색상 */
-.battery-fill.level-100 { background: linear-gradient(180deg, #6EE7B7, #A7F3D0); }
-.battery-fill.level-80 { background: linear-gradient(180deg, #86EFAC, #BBF7D0); }
-.battery-fill.level-60 { background: linear-gradient(180deg, #FDE68A, #FEF3C7); }
-.battery-fill.level-40 { background: linear-gradient(180deg, #FDBA74, #FED7AA); }
-.battery-fill.level-20 { background: linear-gradient(180deg, #FCA5A5, #FECACA); }
-.battery-fill.level-0 { background: linear-gradient(180deg, #F9A8D4, #FBCFE8); }
+/* 소프트 파스텔 배터리 색상 */
+.battery-fill.level-100 { background: linear-gradient(180deg, #B5EAD7, #C7F0DB); }
+.battery-fill.level-80 { background: linear-gradient(180deg, #C7CEEA, #D5DAEF); }
+.battery-fill.level-60 { background: linear-gradient(180deg, #FFDAC1, #FFE5D0); }
+.battery-fill.level-40 { background: linear-gradient(180deg, #FFB7B2, #FFC8C4); }
+.battery-fill.level-20 { background: linear-gradient(180deg, #E2B6CF, #ECC8DC); }
+.battery-fill.level-0 { background: linear-gradient(180deg, #D5AAFF, #E0BFFF); }
 
 .battery-percent {
     position: absolute;
@@ -138,14 +273,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 900;
     color: white;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-shadow:
+        0 1px 2px rgba(61, 50, 80, 0.15),
+        0 4px 12px rgba(61, 50, 80, 0.1);
     z-index: 2;
+    letter-spacing: -1px;
 }
 
-/* 충전 애니메이션 */
+/* 충전 반짝임 애니메이션 */
 .battery-fill::after {
     content: '';
     position: absolute;
@@ -156,7 +294,7 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.25),
         transparent
     );
     animation: batteryShine 3s ease-in-out infinite;
@@ -167,13 +305,64 @@
     100% { transform: translateX(50%); }
 }
 
+/* 물결 효과 (배터리 상단) */
+.battery-fill::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -10%;
+    width: 120%;
+    height: 10px;
+    background: inherit;
+    filter: blur(2px);
+    opacity: 0.5;
+    border-radius: 50%;
+    animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: translateX(-2%) scaleY(1); }
+    50% { transform: translateX(2%) scaleY(1.5); }
+}
+
 /* 배터리 상태 아이콘 */
 .battery-status-icon {
     font-size: 3rem;
     margin-bottom: 16px;
+    animation: statusBounce 2s ease-in-out infinite;
 }
 
-/* === 충전 방법 카드 === */
+@keyframes statusBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ============================================
+   결과 캡처용
+   ============================================ */
+#resultCapture {
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #FFF8F9, #FFF0F3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 결과 배경 데코 (별/구름) */
+#resultCapture::before {
+    content: '✦ ✧ ✦';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: var(--neon-purple);
+    opacity: 0.3;
+    letter-spacing: 12px;
+}
+
+/* ============================================
+   충전 방법 카드 - 글래스모피즘
+   ============================================ */
 .charge-section {
     margin-top: 32px;
 }
@@ -189,17 +378,33 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 16px;
-    background: var(--bg-card);
-    border-radius: var(--radius-md);
-    margin-bottom: 10px;
-    border: 1px solid rgba(192, 132, 252, 0.08);
-    box-shadow: 0 2px 8px rgba(192, 132, 252, 0.04);
+    padding: 18px 16px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    border: 1px solid rgba(192, 132, 252, 0.1);
+    box-shadow: 0 4px 16px rgba(192, 132, 252, 0.06);
+    transition: all 0.3s ease;
+}
+
+.charge-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(192, 132, 252, 0.12);
+    border-color: rgba(249, 168, 212, 0.2);
 }
 
 .charge-card .charge-emoji {
-    font-size: 1.8rem;
+    font-size: 2rem;
     flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.08), rgba(249, 168, 212, 0.08));
+    border-radius: 14px;
 }
 
 .charge-card .charge-text {
@@ -212,75 +417,94 @@
     color: var(--text-primary);
     display: block;
     margin-bottom: 2px;
+    font-size: 0.95rem;
 }
 
-/* === 궁합 배터리 === */
+/* ============================================
+   궁합 섹션 - 아바타 카드형
+   ============================================ */
 .match-section {
     margin-top: 28px;
-    padding: 20px;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.04), rgba(249, 168, 212, 0.06));
+    border-radius: var(--radius-lg);
     border: 1px solid rgba(249, 168, 212, 0.12);
     text-align: center;
 }
 
 .match-section h4 {
-    font-size: 0.9rem;
-    color: var(--text-muted);
+    font-size: 1rem;
+    color: var(--text-primary);
     margin-bottom: 16px;
+    font-weight: 700;
 }
 
 .match-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    font-size: 0.9rem;
+    gap: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
     color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+}
+
+.match-item:last-child {
+    margin-bottom: 0;
 }
 
 .match-item .match-icon {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
 }
 
-/* === 위험 경고 (낮은 배터리) === */
+/* ============================================
+   위험 경고 (낮은 배터리) - 더 눈에 띄게
+   ============================================ */
 .low-battery-warning {
     margin-top: 20px;
-    padding: 16px;
-    background: rgba(249, 168, 212, 0.08);
-    border: 1px solid rgba(249, 168, 212, 0.2);
-    border-radius: var(--radius-md);
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(252, 165, 165, 0.08), rgba(249, 168, 212, 0.08));
+    border: 1.5px solid rgba(252, 165, 165, 0.2);
+    border-radius: var(--radius-lg);
     text-align: center;
+    animation: warningPulse 2s ease-in-out infinite;
+}
+
+@keyframes warningPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(252, 165, 165, 0); }
+    50% { box-shadow: 0 0 0 6px rgba(252, 165, 165, 0.08); }
 }
 
 .low-battery-warning p {
-    font-size: 0.85rem;
-    color: #E879A0;
+    font-size: 0.9rem;
+    color: #D97086;
     line-height: 1.6;
+    font-weight: 500;
 }
 
-/* 결과 캡처용 */
-#resultCapture {
-    padding: 20px;
-    background: var(--bg-primary);
-}
-
-/* 스마트폰 프레임 */
+/* ============================================
+   스마트폰 프레임 - 더 세련되게
+   ============================================ */
 .phone-frame {
     width: 200px;
-    margin: 0 auto 20px;
+    margin: 0 auto 24px;
     padding: 20px;
-    background: #FFF5F7;
-    border-radius: 24px;
-    border: 3px solid rgba(192, 132, 252, 0.2);
-    box-shadow: 0 8px 30px rgba(192, 132, 252, 0.1);
+    background: linear-gradient(180deg, #FFFFFF, #FFF8F9);
+    border-radius: 28px;
+    border: 2.5px solid rgba(192, 132, 252, 0.15);
+    box-shadow:
+        0 12px 40px rgba(192, 132, 252, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .phone-notch {
-    width: 60px;
-    height: 6px;
-    background: rgba(192, 132, 252, 0.15);
+    width: 55px;
+    height: 5px;
+    background: linear-gradient(90deg, rgba(192, 132, 252, 0.12), rgba(249, 168, 212, 0.12));
     border-radius: 3px;
     margin: 0 auto 16px;
 }
@@ -295,19 +519,34 @@
     padding: 0 4px;
 }
 
-/* === 바이럴 CTA 섹션 === */
+/* ============================================
+   바이럴 CTA 섹션
+   ============================================ */
 .viral-cta {
     margin-top: 28px;
-    padding: 24px 20px;
-    background: linear-gradient(135deg, rgba(192, 132, 252, 0.06), rgba(249, 168, 212, 0.06));
+    padding: 28px 24px;
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.06), rgba(249, 168, 212, 0.08));
     border-radius: var(--radius-lg);
     border: 2px dashed rgba(249, 168, 212, 0.3);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.viral-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(249, 168, 212, 0.06) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .viral-cta-title {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 800;
     color: var(--text-primary);
     margin-bottom: 8px;
 }
@@ -315,13 +554,13 @@
 .viral-cta-desc {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     line-height: 1.6;
 }
 
 .viral-cta-btn {
     display: inline-block;
-    padding: 14px 32px;
+    padding: 14px 36px;
     background: var(--gradient-main);
     color: white;
     border: none;
@@ -332,6 +571,24 @@
     font-family: inherit;
     box-shadow: 0 4px 16px rgba(249, 168, 212, 0.3);
     transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.viral-cta-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    animation: btnShine 3s ease-in-out infinite;
 }
 
 .viral-cta-btn:hover {
@@ -339,16 +596,19 @@
     box-shadow: 0 6px 24px rgba(249, 168, 212, 0.4);
 }
 
-/* === 유형 미리보기 그리드 === */
+/* ============================================
+   유형 미리보기 그리드
+   ============================================ */
 .type-teaser-section {
-    margin-top: 24px;
+    margin-top: 28px;
 }
 
 .type-teaser-section h3 {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     text-align: center;
+    font-weight: 600;
 }
 
 .type-teaser-grid {
@@ -358,21 +618,26 @@
 }
 
 .type-teaser-card {
-    padding: 14px 10px;
+    padding: 16px 12px;
     background: var(--bg-card);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     border: 1.5px solid rgba(192, 132, 252, 0.08);
     text-align: center;
     font-size: 0.8rem;
     color: var(--text-muted);
     box-shadow: 0 2px 8px rgba(192, 132, 252, 0.04);
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+}
+
+.type-teaser-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(192, 132, 252, 0.08);
 }
 
 .type-teaser-card .teaser-emoji {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .type-teaser-card .teaser-name {
@@ -381,10 +646,21 @@
 
 .type-teaser-card.current {
     border-color: var(--neon-pink);
-    background: rgba(249, 168, 212, 0.06);
+    background: linear-gradient(135deg, rgba(249, 168, 212, 0.06), rgba(192, 132, 252, 0.04));
     color: var(--text-primary);
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(249, 168, 212, 0.12);
+    box-shadow: 0 4px 16px rgba(249, 168, 212, 0.12);
+    position: relative;
+}
+
+.type-teaser-card.current::after {
+    content: '← 나!';
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.65rem;
+    color: var(--neon-pink);
+    font-weight: 700;
 }
 
 /* 홀수 마지막 아이템 - 가운데 정렬 */
@@ -394,7 +670,9 @@
     justify-self: center;
 }
 
-/* === 귀여운 데코 === */
+/* ============================================
+   귀여운 데코 & 결과 타이틀
+   ============================================ */
 .cute-sparkle {
     display: inline-block;
     animation: sparkle 1.5s ease-in-out infinite;
@@ -405,7 +683,38 @@
     50% { opacity: 0.6; transform: scale(0.85); }
 }
 
-/* 귀여운 결과 타이틀 */
+/* 결과 타이틀 프리미엄 */
 .cute-theme .result-type-name {
     font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+}
+
+.cute-theme .result-title {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.cute-theme .result-description {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 16px 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(192, 132, 252, 0.06);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* 선택 시 confetti 효과 */
+@keyframes confettiPop {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
+}
+
+.option-btn.selected .confetti {
+    position: absolute;
+    animation: confettiPop 0.6s ease-out forwards;
 }

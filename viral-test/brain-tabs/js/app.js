@@ -207,10 +207,12 @@ const BrainTabsTest = {
         const btn = e.currentTarget;
         const type = btn.dataset.type;
 
-        // 선택 애니메이션
         btn.classList.add('selected');
         const allBtns = btn.parentElement.querySelectorAll('.option-btn');
         allBtns.forEach(b => { b.style.pointerEvents = 'none'; });
+
+        // 선택 confetti
+        this.spawnConfetti(btn);
 
         this.answers.push(type);
 
@@ -220,7 +222,26 @@ const BrainTabsTest = {
             } else {
                 this.showCalculating();
             }
-        }, 400);
+        }, 500);
+    },
+
+    spawnConfetti(btn) {
+        const emojis = ['✨', '🧠', '⭐', '💭', '🌟'];
+        for (let i = 0; i < 5; i++) {
+            const span = document.createElement('span');
+            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.cssText = `
+                position: absolute;
+                font-size: ${0.6 + Math.random() * 0.6}rem;
+                left: ${20 + Math.random() * 60}%;
+                top: ${20 + Math.random() * 60}%;
+                pointer-events: none;
+                z-index: 10;
+                animation: confettiPop 0.6s ease-out forwards;
+            `;
+            btn.appendChild(span);
+            setTimeout(() => span.remove(), 700);
+        }
     },
 
     showCalculating() {
@@ -228,12 +249,30 @@ const BrainTabsTest = {
         document.getElementById('progressContainer').style.display = 'none';
         document.getElementById('calcScreen').classList.add('active');
 
-        // 프로그레스 100%
         document.getElementById('progressFill').style.width = '100%';
 
+        // 단계별 로딩 메시지
+        const calcText = document.querySelector('.calc-text');
+        const messages = [
+            '뇌 스캔 중... 🧠',
+            '열린 탭 세는 중... 📑',
+            'RAM 사용량 분석 중... 💻',
+            '결과 생성 중... ✨'
+        ];
+        let msgIndex = 0;
+        const msgInterval = setInterval(() => {
+            msgIndex++;
+            if (msgIndex < messages.length) {
+                calcText.textContent = messages[msgIndex];
+            } else {
+                clearInterval(msgInterval);
+            }
+        }, 600);
+
         setTimeout(() => {
+            clearInterval(msgInterval);
             this.showResult();
-        }, 2000);
+        }, 2500);
     },
 
     calculateResult() {
@@ -324,7 +363,7 @@ const BrainTabsTest = {
                         <div class="ram-usage">
                             <div class="ram-label">
                                 <span>🖥️ RAM 사용량</span>
-                                <span>${r.ram}%</span>
+                                <span>${r.ram}% <span class="ram-emoji">${r.ram >= 80 ? '🤯' : r.ram >= 50 ? '😅' : r.ram >= 30 ? '😌' : '😴'}</span></span>
                             </div>
                             <div class="ram-bar">
                                 <div class="ram-fill ${r.ramClass}" id="ramFill" style="width: 0%"></div>

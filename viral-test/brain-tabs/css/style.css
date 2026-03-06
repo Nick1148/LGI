@@ -1,105 +1,156 @@
 /* ============================================
-   뇌 속 브라우저 탭 - 전용 스타일 (파스텔 테마)
+   뇌 속 브라우저 탭 - 전용 스타일 (프리미엄 파스텔)
    ============================================ */
 
-/* === 결과: 브라우저 탭 UI === */
+/* === 결과: 브라우저 탭 UI (프리미엄) === */
 .browser-window {
     background: #FFFFFF;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 8px 40px rgba(192, 132, 252, 0.1);
+    box-shadow:
+        0 12px 48px rgba(192, 132, 252, 0.1),
+        0 0 0 1px rgba(192, 132, 252, 0.08);
     margin: 24px 0;
-    border: 1.5px solid rgba(192, 132, 252, 0.15);
+    border: none;
+    position: relative;
 }
 
-/* 브라우저 상단 바 */
+/* 브라우저 상단 바 (파스텔 그라데이션) */
 .browser-top-bar {
     display: flex;
     align-items: center;
-    padding: 10px 14px;
-    background: #FFF5F7;
-    border-bottom: 1px solid rgba(192, 132, 252, 0.1);
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #FFF5F7, #F5F0FF);
+    border-bottom: 1px solid rgba(192, 132, 252, 0.08);
 }
 
 .browser-dots {
     display: flex;
-    gap: 6px;
+    gap: 7px;
     margin-right: 12px;
 }
 
 .browser-dot {
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
 }
 
-.browser-dot.red { background: #FCA5A5; }
-.browser-dot.yellow { background: #FDE68A; }
-.browser-dot.green { background: #6EE7B7; }
+.browser-dot.red {
+    background: #FCA5A5;
+    box-shadow: 0 0 4px rgba(252, 165, 165, 0.4);
+}
+.browser-dot.yellow {
+    background: #FDE68A;
+    box-shadow: 0 0 4px rgba(253, 230, 138, 0.4);
+}
+.browser-dot.green {
+    background: #6EE7B7;
+    box-shadow: 0 0 4px rgba(110, 231, 183, 0.4);
+}
 
 .browser-title-text {
     font-size: 0.75rem;
     color: var(--text-muted);
     flex: 1;
     text-align: center;
+    font-weight: 500;
 }
 
-/* 탭 바 영역 */
+/* 탭 바 영역 (파스텔 핑크 배경) */
 .tab-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
-    padding: 6px 6px 0;
-    background: #FFF0F3;
+    gap: 3px;
+    padding: 8px 8px 0;
+    background: linear-gradient(180deg, #FFF0F3, #FFF5F7);
     overflow: hidden;
 }
 
+/* 탭 디자인 (둥근 + 파스텔 배경색 랜덤) */
 .tab-item {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 12px;
+    padding: 8px 14px;
     background: #FFFFFF;
-    border-radius: 8px 8px 0 0;
-    font-size: 0.7rem;
+    border-radius: 12px 12px 0 0;
+    font-size: 0.72rem;
     color: var(--text-secondary);
     max-width: 160px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border: 1px solid rgba(192, 132, 252, 0.08);
+    border: 1px solid rgba(192, 132, 252, 0.06);
     border-bottom: none;
-    animation: tabAppear 0.3s ease forwards;
+    animation: tabDrop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     opacity: 0;
+    transform: translateY(-20px);
+    transition: background 0.2s ease;
+}
+
+/* 탭마다 다른 파스텔 배경 */
+.tab-item:nth-child(6n+1) { background: rgba(181, 234, 215, 0.15); }
+.tab-item:nth-child(6n+2) { background: rgba(199, 206, 234, 0.15); }
+.tab-item:nth-child(6n+3) { background: rgba(255, 218, 193, 0.15); }
+.tab-item:nth-child(6n+4) { background: rgba(255, 183, 178, 0.15); }
+.tab-item:nth-child(6n+5) { background: rgba(213, 170, 255, 0.15); }
+.tab-item:nth-child(6n+6) { background: rgba(249, 168, 212, 0.15); }
+
+/* 위에서 통통 떨어지는 효과 */
+@keyframes tabDrop {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(3px) scale(1.02);
+    }
+    80% {
+        transform: translateY(-1px) scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .tab-item.active-tab {
-    background: #FFF5F7;
+    background: #FFF5F7 !important;
     color: var(--text-primary);
-    border-color: rgba(249, 168, 212, 0.3);
+    border-color: rgba(249, 168, 212, 0.2);
+    font-weight: 600;
+    box-shadow: 0 -2px 8px rgba(249, 168, 212, 0.08);
 }
 
 .tab-item .tab-favicon {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     flex-shrink: 0;
 }
 
 .tab-item .tab-close {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--text-muted);
     margin-left: auto;
     flex-shrink: 0;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-@keyframes tabAppear {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.tab-item:hover .tab-close {
+    opacity: 1;
+    color: #FCA5A5;
+    background: rgba(252, 165, 165, 0.1);
 }
 
 /* 브라우저 콘텐츠 영역 */
@@ -109,20 +160,23 @@
     text-align: center;
 }
 
+/* 주소창 (귀여운 URL) */
 .browser-address-bar {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 14px;
-    background: #FFF0F3;
-    border-radius: 20px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #FFF0F3, #F5F0FF);
+    border-radius: 24px;
     margin-bottom: 20px;
     font-size: 0.75rem;
     color: var(--text-muted);
+    border: 1px solid rgba(192, 132, 252, 0.06);
 }
 
 .browser-address-bar .lock-icon {
     color: var(--neon-green);
+    font-size: 0.85rem;
 }
 
 .result-main-text {
@@ -137,14 +191,18 @@
     font-size: 0.9rem;
     color: var(--text-secondary);
     line-height: 1.6;
+    padding: 0 8px;
 }
 
-/* RAM 사용량 바 */
+/* ============================================
+   RAM 사용량 바 - 물결 웨이브 애니메이션
+   ============================================ */
 .ram-usage {
     margin-top: 20px;
-    padding: 16px;
-    background: #FFF0F3;
-    border-radius: 12px;
+    padding: 18px;
+    background: linear-gradient(135deg, #FFF0F3, #F5F0FF);
+    border-radius: 16px;
+    border: 1px solid rgba(192, 132, 252, 0.06);
 }
 
 .ram-label {
@@ -152,51 +210,104 @@
     justify-content: space-between;
     font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 .ram-bar {
-    height: 8px;
-    background: rgba(192, 132, 252, 0.1);
-    border-radius: 4px;
+    height: 10px;
+    background: rgba(192, 132, 252, 0.08);
+    border-radius: 5px;
     overflow: hidden;
+    position: relative;
 }
 
 .ram-fill {
     height: 100%;
-    border-radius: 4px;
-    transition: width 1.5s ease;
+    border-radius: 5px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.ram-fill.high { background: linear-gradient(90deg, #FCA5A5, #FDBA74); }
-.ram-fill.medium { background: linear-gradient(90deg, #FDE68A, #FCD34D); }
-.ram-fill.low { background: linear-gradient(90deg, #6EE7B7, #67E8F9); }
+/* RAM 물결 효과 */
+.ram-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: ramWave 2s ease-in-out infinite;
+}
 
-/* 결과 특성 태그 */
+@keyframes ramWave {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(50%); }
+}
+
+/* 파스텔 RAM 색상 */
+.ram-fill.high { background: linear-gradient(90deg, #FFB7B2, #FCA5A5); }
+.ram-fill.medium { background: linear-gradient(90deg, #FFDAC1, #FDE68A); }
+.ram-fill.low { background: linear-gradient(90deg, #B5EAD7, #C7CEEA); }
+
+/* ============================================
+   결과 특성 태그 - 파스텔 배경 pill
+   ============================================ */
 .trait-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
 .trait-tag {
-    padding: 6px 14px;
-    background: rgba(192, 132, 252, 0.08);
-    border: 1px solid rgba(192, 132, 252, 0.2);
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.08), rgba(249, 168, 212, 0.08));
+    border: none;
+    border-radius: 24px;
+    font-size: 0.82rem;
     color: var(--neon-purple);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(192, 132, 252, 0.06);
+    transition: all 0.2s ease;
 }
 
-/* 결과 카드 (캡처용) */
+.trait-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(192, 132, 252, 0.12);
+}
+
+/* ============================================
+   결과 카드 (캡처용)
+   ============================================ */
 #resultCapture {
-    padding: 20px;
-    background: var(--bg-primary);
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #FFF8F9, #FFF0F3);
+    position: relative;
+    overflow: hidden;
 }
 
-/* 탭 개수 카운터 애니메이션 */
+#resultCapture::before {
+    content: '✦ ✧ ✦';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: var(--neon-purple);
+    opacity: 0.3;
+    letter-spacing: 12px;
+}
+
+/* 탭 개수 카운터 */
 .tab-count-display {
     font-size: 4rem;
     font-weight: 900;
@@ -206,32 +317,60 @@
     background-clip: text;
     margin: 16px 0 8px;
     line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(192, 132, 252, 0.15));
 }
 
 .tab-count-label {
     font-size: 0.9rem;
     color: var(--text-muted);
     margin-bottom: 24px;
+    font-weight: 500;
 }
 
-/* 궁합 섹션 */
+/* ============================================
+   궁합 섹션 - 카드형
+   ============================================ */
 .compatibility {
     margin-top: 24px;
-    padding: 20px;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(249, 168, 212, 0.12);
+    padding: 24px 20px;
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.04), rgba(249, 168, 212, 0.06));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(249, 168, 212, 0.1);
 }
 
 .compatibility h4 {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 12px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    font-weight: 700;
 }
 
 .compatibility .good-match,
 .compatibility .bad-match {
-    font-size: 0.9rem;
-    margin-bottom: 6px;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
     color: var(--text-secondary);
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-md);
+    line-height: 1.5;
+}
+
+.compatibility .good-match:last-child,
+.compatibility .bad-match:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   RAM 퍼센트 옆 이모지 표정 (JS에서 주입)
+   ============================================ */
+.ram-emoji {
+    font-size: 1.2rem;
+    margin-left: 4px;
+    animation: ramEmojiBounce 1s ease-in-out infinite;
+}
+
+@keyframes ramEmojiBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
 }

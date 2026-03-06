@@ -61,7 +61,7 @@ const SocialBatteryTest = {
             name: '에너지 만렙 인싸요정',
             emoji: '✨',
             icon: '✨',
-            color: '#6EE7B7',
+            color: '#B5EAD7',
             levelClass: 'level-100',
             description: '사람 만나는 게 곧 충전! 약속 없는 주말이 더 불안한 타입이에요. 넘치는 에너지로 주변 사람들까지 행복하게 만들어주는 당신!',
             chargeMethods: [
@@ -77,7 +77,7 @@ const SocialBatteryTest = {
             name: '센스쟁이 사교댕댕이',
             emoji: '🐶',
             icon: '🐶',
-            color: '#86EFAC',
+            color: '#C7CEEA',
             levelClass: 'level-80',
             description: '적당히 만나고 적당히 쉬는 완벽 밸런서! 사회생활도 잘하지만 혼자만의 시간도 소중히 여기는 건강한 타입이에요.',
             chargeMethods: [
@@ -93,7 +93,7 @@ const SocialBatteryTest = {
             name: '절전모드 고양이',
             emoji: '🐱',
             icon: '🐱',
-            color: '#FCD34D',
+            color: '#FFDAC1',
             levelClass: 'level-60',
             description: '사회생활은 하지만 집이 최고! 약속 취소되면 내심 기뻐하는 타입이에요. 에너지 관리의 달인!',
             chargeMethods: [
@@ -109,7 +109,7 @@ const SocialBatteryTest = {
             name: '충전필요 곰돌이',
             emoji: '🧸',
             icon: '🧸',
-            color: '#FDBA74',
+            color: '#FFB7B2',
             levelClass: 'level-20',
             description: '사회적 에너지가 많이 소진된 상태! 충전이 시급해요. 최소 3일은 혼자만의 시간이 필요한 당신!',
             chargeMethods: [
@@ -125,7 +125,7 @@ const SocialBatteryTest = {
             name: '이불 속 겨울잠 다람쥐',
             emoji: '🐿️',
             icon: '🐿️',
-            color: '#FCA5A5',
+            color: '#E2B6CF',
             levelClass: 'level-0',
             description: '배터리 방전! 현재 세상과 연결 해제 중이에요. 이불 속이 세상의 전부! 하지만 괜찮아요, 푹 쉬면 다시 충전될 거예요.',
             chargeMethods: [
@@ -186,6 +186,9 @@ const SocialBatteryTest = {
             b.style.pointerEvents = 'none';
         });
 
+        // 선택 시 미니 confetti
+        this.spawnConfetti(btn);
+
         this.score += score;
         this.answers.push(score);
 
@@ -195,7 +198,26 @@ const SocialBatteryTest = {
             } else {
                 this.showCalculating();
             }
-        }, 400);
+        }, 500);
+    },
+
+    spawnConfetti(btn) {
+        const emojis = ['✨', '💖', '⭐', '💕', '🌟'];
+        for (let i = 0; i < 5; i++) {
+            const span = document.createElement('span');
+            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.cssText = `
+                position: absolute;
+                font-size: ${0.6 + Math.random() * 0.6}rem;
+                left: ${20 + Math.random() * 60}%;
+                top: ${20 + Math.random() * 60}%;
+                pointer-events: none;
+                z-index: 10;
+                animation: confettiPop 0.6s ease-out forwards;
+            `;
+            btn.appendChild(span);
+            setTimeout(() => span.remove(), 700);
+        }
     },
 
     showCalculating() {
@@ -204,7 +226,28 @@ const SocialBatteryTest = {
         document.getElementById('calcScreen').classList.add('active');
         document.getElementById('progressFill').style.width = '100%';
 
-        setTimeout(() => this.showResult(), 2000);
+        // 단계별 로딩 메시지
+        const calcText = document.querySelector('.calc-text');
+        const messages = [
+            '배터리 잔량 측정 중... 🔋',
+            '사회적 에너지 분석 중... 💫',
+            '충전 방법 찾는 중... ⚡',
+            '결과 생성 중... ✨'
+        ];
+        let msgIndex = 0;
+        const msgInterval = setInterval(() => {
+            msgIndex++;
+            if (msgIndex < messages.length) {
+                calcText.textContent = messages[msgIndex];
+            } else {
+                clearInterval(msgInterval);
+            }
+        }, 600);
+
+        setTimeout(() => {
+            clearInterval(msgInterval);
+            this.showResult();
+        }, 2500);
     },
 
     calculateResult() {
