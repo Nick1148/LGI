@@ -93,7 +93,21 @@ export async function trackDelivery(
         throw new Error(`API 응답 오류: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = await response.json() as {
+        status?: boolean;
+        msg?: string;
+        completeYN?: string;
+        level?: number;
+        senderName?: string;
+        receiverName?: string;
+        itemName?: string;
+        trackingDetails?: Array<{
+          timeString?: string;
+          where?: string;
+          kind?: string;
+          telno?: string;
+        }>;
+      };
 
       if (data.status === false || data.msg) {
         return {
