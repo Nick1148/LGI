@@ -37,19 +37,59 @@
     transition: all 0.3s ease;
     cursor: default;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.browser-dot::after {
+    content: '';
+    position: absolute;
+    font-size: 0.55rem;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scale(0);
+    top: -14px;
+    pointer-events: none;
+}
+
+.browser-dot:hover::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .browser-dot.red {
     background: #FCA5A5;
     box-shadow: 0 0 4px rgba(252, 165, 165, 0.4);
 }
+.browser-dot.red::after { content: '😡'; }
+.browser-dot.red:hover {
+    background: #F87171;
+    box-shadow: 0 0 8px rgba(252, 165, 165, 0.6);
+    transform: scale(1.2);
+}
+
 .browser-dot.yellow {
     background: #FDE68A;
     box-shadow: 0 0 4px rgba(253, 230, 138, 0.4);
 }
+.browser-dot.yellow::after { content: '😴'; }
+.browser-dot.yellow:hover {
+    background: #FBBF24;
+    box-shadow: 0 0 8px rgba(253, 230, 138, 0.6);
+    transform: scale(1.2);
+}
+
 .browser-dot.green {
     background: #6EE7B7;
     box-shadow: 0 0 4px rgba(110, 231, 183, 0.4);
+}
+.browser-dot.green::after { content: '😊'; }
+.browser-dot.green:hover {
+    background: #34D399;
+    box-shadow: 0 0 8px rgba(110, 231, 183, 0.6);
+    transform: scale(1.2);
 }
 
 .browser-title-text {
@@ -373,4 +413,140 @@
 @keyframes ramEmojiBounce {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.15); }
+}
+
+/* ============================================
+   RAM 과부하 파티클 (연기/불꽃)
+   ============================================ */
+.ram-overload-particles {
+    position: relative;
+    display: inline-block;
+}
+
+.ram-particle {
+    position: absolute;
+    font-size: 0.7rem;
+    pointer-events: none;
+    animation: ramParticleFloat 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes ramParticleFloat {
+    0% { transform: translateY(0) scale(0.5); opacity: 0.8; }
+    50% { opacity: 0.6; }
+    100% { transform: translateY(-30px) translateX(var(--drift)) scale(0.2); opacity: 0; }
+}
+
+/* RAM 바 과부하 시 경고 글로우 */
+.ram-fill.high {
+    background: linear-gradient(90deg, #FFB7B2, #FCA5A5);
+    animation: ramOverloadGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes ramOverloadGlow {
+    0%, 100% { box-shadow: 0 0 4px rgba(252, 165, 165, 0.3); }
+    50% { box-shadow: 0 0 12px rgba(252, 165, 165, 0.6); }
+}
+
+/* ============================================
+   글래스모피즘 결과 카드
+   ============================================ */
+#resultCapture {
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #FFF8F9, #FFF0F3);
+    position: relative;
+    overflow: hidden;
+}
+
+#resultCapture .browser-window {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.compatibility {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.compatibility .good-match,
+.compatibility .bad-match {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* ============================================
+   다크모드 오버라이드
+   ============================================ */
+[data-theme="dark"] .browser-window {
+    background: #2A2438;
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(212, 165, 255, 0.08);
+}
+
+[data-theme="dark"] .browser-top-bar {
+    background: linear-gradient(135deg, #2A2438, #332D42);
+    border-bottom-color: rgba(212, 165, 255, 0.08);
+}
+
+[data-theme="dark"] .tab-bar {
+    background: linear-gradient(180deg, #221D30, #2A2438);
+}
+
+[data-theme="dark"] .tab-item {
+    background: rgba(42, 36, 56, 0.6);
+    border-color: rgba(212, 165, 255, 0.06);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .tab-item.active-tab {
+    background: #332D42 !important;
+    color: var(--text-primary);
+    border-color: rgba(255, 184, 217, 0.2);
+}
+
+[data-theme="dark"] .browser-content {
+    background: #2A2438;
+}
+
+[data-theme="dark"] .browser-address-bar {
+    background: linear-gradient(135deg, #221D30, #2A2438);
+    border-color: rgba(212, 165, 255, 0.06);
+}
+
+[data-theme="dark"] .ram-usage {
+    background: linear-gradient(135deg, #221D30, #2A2438);
+    border-color: rgba(212, 165, 255, 0.06);
+}
+
+[data-theme="dark"] .ram-bar {
+    background: rgba(212, 165, 255, 0.08);
+}
+
+[data-theme="dark"] .trait-tag {
+    background: linear-gradient(135deg, rgba(212, 165, 255, 0.1), rgba(255, 184, 217, 0.1));
+    color: var(--neon-purple);
+}
+
+[data-theme="dark"] .compatibility {
+    background: rgba(42, 36, 56, 0.6);
+    border-color: rgba(255, 184, 217, 0.1);
+}
+
+[data-theme="dark"] .compatibility .good-match,
+[data-theme="dark"] .compatibility .bad-match {
+    background: rgba(42, 36, 56, 0.7);
+}
+
+[data-theme="dark"] #resultCapture {
+    background: linear-gradient(180deg, #1A1625, #221D30);
+}
+
+[data-theme="dark"] #resultCapture .browser-window {
+    background: rgba(42, 36, 56, 0.85);
+    border-color: rgba(212, 165, 255, 0.1);
 }

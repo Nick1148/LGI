@@ -251,26 +251,34 @@ const BrainTabsTest = {
 
         document.getElementById('progressFill').style.width = '100%';
 
-        // 단계별 로딩 메시지
         const calcText = document.querySelector('.calc-text');
-        const messages = [
-            '뇌 스캔 중... 🧠',
-            '열린 탭 세는 중... 📑',
-            'RAM 사용량 분석 중... 💻',
-            '결과 생성 중... ✨'
+        const calcChar = document.getElementById('calcChar');
+        const calcProgress = document.getElementById('calcProgress');
+
+        const stages = [
+            { msg: '뇌 스캔 중... 🧠', char: '🧠', pct: 25 },
+            { msg: '열린 탭 세는 중... 📑', char: '📑', pct: 50 },
+            { msg: 'RAM 사용량 분석 중... 💻', char: '💻', pct: 75 },
+            { msg: '결과 생성 중... ✨', char: '✨', pct: 95 }
         ];
-        let msgIndex = 0;
-        const msgInterval = setInterval(() => {
-            msgIndex++;
-            if (msgIndex < messages.length) {
-                calcText.textContent = messages[msgIndex];
+        let stageIndex = 0;
+
+        if (calcProgress) calcProgress.style.width = stages[0].pct + '%';
+
+        const stageInterval = setInterval(() => {
+            stageIndex++;
+            if (stageIndex < stages.length) {
+                calcText.textContent = stages[stageIndex].msg;
+                if (calcChar) calcChar.textContent = stages[stageIndex].char;
+                if (calcProgress) calcProgress.style.width = stages[stageIndex].pct + '%';
             } else {
-                clearInterval(msgInterval);
+                clearInterval(stageInterval);
             }
         }, 600);
 
         setTimeout(() => {
-            clearInterval(msgInterval);
+            clearInterval(stageInterval);
+            if (calcProgress) calcProgress.style.width = '100%';
             this.showResult();
         }, 2500);
     },
@@ -427,10 +435,37 @@ const BrainTabsTest = {
         setTimeout(() => {
             const ramFill = document.getElementById('ramFill');
             if (ramFill) ramFill.style.width = r.ram + '%';
+
+            // RAM 과부하 시 파티클 효과
+            if (r.ram >= 80) {
+                this.spawnRamParticles();
+            }
         }, 500);
 
         // 광고 초기화
         AdManager.init();
+    }
+};
+
+    spawnRamParticles() {
+        const ramBar = document.querySelector('.ram-usage');
+        if (!ramBar) return;
+        ramBar.style.position = 'relative';
+
+        const particles = ['💨', '🔥', '💥', '⚡', '💢'];
+        let count = 0;
+        const interval = setInterval(() => {
+            if (count >= 8) { clearInterval(interval); return; }
+            const span = document.createElement('span');
+            span.className = 'ram-particle';
+            span.textContent = particles[Math.floor(Math.random() * particles.length)];
+            span.style.left = (20 + Math.random() * 60) + '%';
+            span.style.top = '-5px';
+            span.style.setProperty('--drift', (Math.random() * 20 - 10) + 'px');
+            ramBar.appendChild(span);
+            setTimeout(() => span.remove(), 1500);
+            count++;
+        }, 300);
     }
 };
 

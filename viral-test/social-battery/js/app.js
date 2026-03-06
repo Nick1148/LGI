@@ -226,26 +226,35 @@ const SocialBatteryTest = {
         document.getElementById('calcScreen').classList.add('active');
         document.getElementById('progressFill').style.width = '100%';
 
-        // 단계별 로딩 메시지
         const calcText = document.querySelector('.calc-text');
-        const messages = [
-            '배터리 잔량 측정 중... 🔋',
-            '사회적 에너지 분석 중... 💫',
-            '충전 방법 찾는 중... ⚡',
-            '결과 생성 중... ✨'
+        const calcChar = document.getElementById('calcChar');
+        const calcProgress = document.getElementById('calcProgress');
+
+        const stages = [
+            { msg: '배터리 잔량 측정 중... 🔋', char: '🔋', pct: 25 },
+            { msg: '사회적 에너지 분석 중... 💫', char: '💫', pct: 50 },
+            { msg: '충전 방법 찾는 중... ⚡', char: '⚡', pct: 75 },
+            { msg: '결과 생성 중... ✨', char: '✨', pct: 95 }
         ];
-        let msgIndex = 0;
-        const msgInterval = setInterval(() => {
-            msgIndex++;
-            if (msgIndex < messages.length) {
-                calcText.textContent = messages[msgIndex];
+        let stageIndex = 0;
+
+        // 첫 번째 스테이지
+        if (calcProgress) calcProgress.style.width = stages[0].pct + '%';
+
+        const stageInterval = setInterval(() => {
+            stageIndex++;
+            if (stageIndex < stages.length) {
+                calcText.textContent = stages[stageIndex].msg;
+                if (calcChar) calcChar.textContent = stages[stageIndex].char;
+                if (calcProgress) calcProgress.style.width = stages[stageIndex].pct + '%';
             } else {
-                clearInterval(msgInterval);
+                clearInterval(stageInterval);
             }
         }, 600);
 
         setTimeout(() => {
-            clearInterval(msgInterval);
+            clearInterval(stageInterval);
+            if (calcProgress) calcProgress.style.width = '100%';
             this.showResult();
         }, 2500);
     },
@@ -334,11 +343,17 @@ const SocialBatteryTest = {
                     <h4>💕 배터리 궁합</h4>
                     <div class="match-item">
                         <span class="match-icon">💖</span>
-                        <span>잘 맞는 유형: ${r.goodMatch}</span>
+                        <div class="match-info">
+                            <div class="match-label">잘 맞는 유형</div>
+                            <div class="match-name">${r.goodMatch}</div>
+                        </div>
                     </div>
                     <div class="match-item">
                         <span class="match-icon">💔</span>
-                        <span>주의할 유형: ${r.badMatch}</span>
+                        <div class="match-info">
+                            <div class="match-label">주의할 유형</div>
+                            <div class="match-name">${r.badMatch}</div>
+                        </div>
                     </div>
                 </div>
             </div>

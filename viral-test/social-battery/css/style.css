@@ -197,7 +197,7 @@
 }
 
 .battery-container::after {
-    content: '✨';
+    content: '💖';
     top: 40px;
     right: 10px;
     animation-delay: 1.5s;
@@ -327,9 +327,10 @@
 
 /* 배터리 상태 아이콘 */
 .battery-status-icon {
-    font-size: 3rem;
+    font-size: 5rem;
     margin-bottom: 16px;
     animation: statusBounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(192, 132, 252, 0.2));
 }
 
 @keyframes statusBounce {
@@ -442,13 +443,22 @@
 .match-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    font-size: 0.95rem;
+    gap: 14px;
+    padding: 16px 18px;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: var(--radius-md);
-    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    margin-bottom: 10px;
+    border: 1px solid rgba(192, 132, 252, 0.08);
+    transition: all 0.2s ease;
+}
+
+.match-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(192, 132, 252, 0.08);
 }
 
 .match-item:last-child {
@@ -456,8 +466,34 @@
 }
 
 .match-item .match-icon {
-    font-size: 1.4rem;
+    font-size: 2rem;
     flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.08), rgba(249, 168, 212, 0.08));
+    border-radius: 14px;
+}
+
+.match-item .match-info {
+    flex: 1;
+}
+
+.match-item .match-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.match-item .match-name {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 /* ============================================
@@ -717,4 +753,83 @@
 .option-btn.selected .confetti {
     position: absolute;
     animation: confettiPop 0.6s ease-out forwards;
+}
+
+/* ============================================
+   다크모드 오버라이드
+   ============================================ */
+[data-theme="dark"] .battery-outer {
+    background: linear-gradient(180deg, #2A2438, #332D42);
+    box-shadow:
+        0 0 0 3px rgba(212, 165, 255, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 2px 8px rgba(212, 165, 255, 0.06);
+}
+
+[data-theme="dark"] .battery-cap {
+    background: linear-gradient(90deg, #3D2E5C, #4A3568);
+}
+
+[data-theme="dark"] .phone-frame {
+    background: linear-gradient(180deg, #2A2438, #332D42);
+    border-color: rgba(212, 165, 255, 0.15);
+}
+
+[data-theme="dark"] .charge-card {
+    background: rgba(42, 36, 56, 0.7);
+    border-color: rgba(212, 165, 255, 0.1);
+}
+
+[data-theme="dark"] .match-section {
+    background: linear-gradient(135deg, rgba(212, 165, 255, 0.04), rgba(255, 184, 217, 0.06));
+    border-color: rgba(255, 184, 217, 0.12);
+}
+
+[data-theme="dark"] .match-item {
+    background: rgba(42, 36, 56, 0.7);
+    border-color: rgba(212, 165, 255, 0.08);
+}
+
+[data-theme="dark"] #resultCapture {
+    background: linear-gradient(180deg, #1A1625, #221D30);
+}
+
+[data-theme="dark"] .viral-cta {
+    background: linear-gradient(135deg, rgba(212, 165, 255, 0.06), rgba(255, 184, 217, 0.08));
+    border-color: rgba(255, 184, 217, 0.2);
+}
+
+[data-theme="dark"] .low-battery-warning {
+    background: linear-gradient(135deg, rgba(255, 181, 181, 0.08), rgba(255, 184, 217, 0.08));
+    border-color: rgba(255, 181, 181, 0.2);
+}
+
+[data-theme="dark"] .type-teaser-card {
+    background: var(--bg-card);
+    border-color: rgba(212, 165, 255, 0.08);
+}
+
+[data-theme="dark"] .cute-theme .result-description {
+    background: rgba(42, 36, 56, 0.5);
+    border-color: rgba(212, 165, 255, 0.06);
+}
+
+[data-theme="dark"] .cute-theme .option-btn {
+    background: var(--bg-card);
+    border-color: rgba(212, 165, 255, 0.12);
+}
+
+[data-theme="dark"] .cute-theme .option-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--neon-pink);
+}
+
+[data-theme="dark"] .cute-theme .option-btn.selected {
+    background: rgba(255, 184, 217, 0.1);
+    border-color: var(--neon-pink);
+}
+
+[data-theme="dark"] .cute-theme .question-card {
+    background: var(--bg-card);
+    border-color: rgba(212, 165, 255, 0.1);
 }

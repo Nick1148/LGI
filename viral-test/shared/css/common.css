@@ -474,6 +474,38 @@ body {
     display: flex;
 }
 
+/* 캐릭터 로딩 애니메이션 */
+.calc-character {
+    font-size: 3.5rem;
+    margin-bottom: 8px;
+    animation: calcCharBounce 0.6s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 12px rgba(192, 132, 252, 0.2));
+}
+
+@keyframes calcCharBounce {
+    0% { transform: translateY(0) rotate(-5deg); }
+    100% { transform: translateY(-12px) rotate(5deg); }
+}
+
+/* 로딩 프로그레스 바 */
+.calc-progress {
+    width: 200px;
+    height: 6px;
+    background: rgba(192, 132, 252, 0.1);
+    border-radius: 3px;
+    margin: 16px auto;
+    overflow: hidden;
+}
+
+.calc-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient-main);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+/* 기존 스피너 유지 (폴백) */
 .calc-spinner {
     width: 56px;
     height: 56px;
@@ -483,6 +515,7 @@ body {
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-bottom: 24px;
+    display: none;
 }
 
 @keyframes spin {
@@ -494,12 +527,26 @@ body {
     color: var(--text-secondary);
     animation: pulse 1.5s ease-in-out infinite;
     font-weight: 500;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 @keyframes pulse {
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
+}
+
+/* 복사 시 confetti 폭발 */
+@keyframes copyConfetti {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(360deg); opacity: 0; }
+}
+
+.copy-confetti-particle {
+    position: fixed;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 9999;
+    animation: copyConfetti 0.8s ease-out forwards;
 }
 
 /* === 토스트 알림 (개선) === */
@@ -543,6 +590,118 @@ body {
         padding: 10px 16px;
         font-size: 0.85rem;
     }
+}
+
+/* ============================================
+   다크모드 - 딥 네이비/퍼플 + 밝은 파스텔
+   ============================================ */
+[data-theme="dark"] {
+    --bg-primary: #1A1625;
+    --bg-secondary: #221D30;
+    --bg-card: #2A2438;
+    --bg-card-hover: #332D42;
+
+    --text-primary: #F0E6FF;
+    --text-secondary: #B8A8D4;
+    --text-muted: #7B6F8E;
+
+    --neon-purple: #D4A5FF;
+    --neon-pink: #FFB8D9;
+    --neon-blue: #A5C8FF;
+    --neon-green: #8DF0C8;
+    --neon-yellow: #FFE9A5;
+    --neon-red: #FFB5B5;
+
+    --gradient-main: linear-gradient(135deg, #D4A5FF, #FFB8D9);
+    --gradient-card: linear-gradient(145deg, #2A2438, #332D42);
+
+    --shadow-glow: 0 4px 20px rgba(212, 165, 255, 0.15);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"].cute-theme {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .question-card {
+    background: var(--bg-card);
+    border-color: rgba(212, 165, 255, 0.1);
+}
+
+[data-theme="dark"] .option-btn {
+    background: var(--bg-card);
+    border-color: rgba(212, 165, 255, 0.12);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .option-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--neon-pink);
+}
+
+[data-theme="dark"] .start-screen,
+[data-theme="dark"] .calculating-screen {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .toast {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--neon-pink);
+}
+
+[data-theme="dark"] .share-btn.copy-link {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: rgba(212, 165, 255, 0.15);
+}
+
+[data-theme="dark"] .test-link-card {
+    background: var(--bg-card);
+    border-color: rgba(212, 165, 255, 0.1);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .progress-container {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .progress-bar {
+    background: rgba(212, 165, 255, 0.1);
+}
+
+/* 다크모드 토글 버튼 */
+.theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(192, 132, 252, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(192, 132, 252, 0.1);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 4px 20px rgba(192, 132, 252, 0.2);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: rgba(42, 36, 56, 0.9);
+    border-color: rgba(212, 165, 255, 0.2);
 }
 
 /* === 접근성 === */

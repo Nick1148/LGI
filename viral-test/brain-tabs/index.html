@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="cute-theme">
+    <button class="theme-toggle" id="themeToggle" aria-label="다크모드 전환">☀️</button>
     <!-- 프로그레스 바 -->
     <div class="progress-container" id="progressContainer" style="display:none;">
         <div class="progress-bar">
@@ -58,8 +59,9 @@
 
         <!-- 계산 중 화면 -->
         <div class="calculating-screen" id="calcScreen">
-            <div class="calc-spinner"></div>
+            <div class="calc-character" id="calcChar">🧠</div>
             <p class="calc-text">뇌 속 탭을 분석하고 있습니다...</p>
+            <div class="calc-progress"><div class="calc-progress-fill" id="calcProgress"></div></div>
         </div>
 
         <!-- 결과 화면 -->
@@ -70,6 +72,7 @@
     <script src="../shared/js/config.js"></script>
     <script src="../shared/js/share.js"></script>
     <script src="../shared/js/ad-manager.js"></script>
+    <script src="../shared/js/theme.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
