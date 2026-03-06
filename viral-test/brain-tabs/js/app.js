@@ -444,8 +444,7 @@ const BrainTabsTest = {
 
         // 광고 초기화
         AdManager.init();
-    }
-};
+    },
 
     spawnRamParticles() {
         const ramBar = document.querySelector('.ram-usage');
