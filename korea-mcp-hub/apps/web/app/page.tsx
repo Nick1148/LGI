@@ -63,7 +63,7 @@ export default function Home() {
           </h2>
           <div className="server-grid">
             {ourServers.map((server) => (
-              <div key={server.slug} className="server-card ours">
+              <a key={server.slug} href={`/servers/${server.slug}`} className="server-card ours" style={{ textDecoration: "none", color: "inherit" }}>
                 <h3>
                   <span className="badge badge-green">Official</span>
                   {server.name}
@@ -80,7 +80,7 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>
@@ -93,7 +93,7 @@ export default function Home() {
         </h2>
         <div className="server-grid">
           {communityServers.map((server) => (
-            <div key={server.slug} className="server-card">
+            <a key={server.slug} href={`/servers/${server.slug}`} className="server-card" style={{ textDecoration: "none", color: "inherit" }}>
               <h3>{server.name}</h3>
               <p>{server.description}</p>
               <div className="author">
@@ -110,7 +110,7 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

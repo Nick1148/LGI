@@ -14,6 +14,15 @@
   },
   "keywords": ["mcp", "korea", "delivery", "tracking", "택배", "배송조회"],
   "license": "MIT",
+  "files": ["dist", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/korea-mcp-hub/korea-mcp-hub",
+    "directory": "packages/delivery"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
     "zod": "^3.24.0"
