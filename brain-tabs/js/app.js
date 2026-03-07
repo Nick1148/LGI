@@ -168,6 +168,7 @@ const BrainTabsTest = {
     },
 
     start() {
+        Analytics.testStart('brain-tabs');
         document.getElementById('startScreen').style.display = 'none';
         document.getElementById('progressContainer').style.display = 'block';
         document.getElementById('questionArea').style.display = 'block';
@@ -215,6 +216,7 @@ const BrainTabsTest = {
         this.spawnConfetti(btn);
 
         this.answers.push(type);
+        Analytics.questionAnswer('brain-tabs', this.currentQ, type);
 
         setTimeout(() => {
             if (this.currentQ < this.questions.length - 1) {
@@ -331,6 +333,7 @@ const BrainTabsTest = {
         const r = this.results[resultType];
         const resultArea = document.getElementById('resultArea');
         resultArea.style.display = 'block';
+        Analytics.resultView('brain-tabs', resultType);
 
         resultArea.innerHTML = `
             <div class="result-container" id="resultCapture">
@@ -417,6 +420,21 @@ const BrainTabsTest = {
                     <span class="emoji">🔋</span>
                     <span class="title">나의 사회적 배터리 잔량</span>
                     <span class="desc">당신의 사회적 배터리는 지금 몇 %?</span>
+                </a>
+                <a href="../love-algorithm/" class="test-link-card">
+                    <span class="emoji">💘</span>
+                    <span class="title">나의 연애 알고리즘</span>
+                    <span class="desc">당신의 연애 스타일은 어떤 알고리즘?</span>
+                </a>
+                <a href="../stress-temp/" class="test-link-card">
+                    <span class="emoji">🌡️</span>
+                    <span class="title">나의 스트레스 온도계</span>
+                    <span class="desc">당신의 스트레스 온도는 지금 몇 도?</span>
+                </a>
+                <a href="../money-type/" class="test-link-card">
+                    <span class="emoji">💰</span>
+                    <span class="title">나의 돈 쓰는 유형</span>
+                    <span class="desc">당신의 소비 성향은 어떤 유형?</span>
                 </a>
             </div>
 

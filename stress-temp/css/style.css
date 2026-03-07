@@ -1,0 +1,853 @@
+/* ============================================
+   스트레스 온도계 - 전용 스타일 (귀여운 파스텔 테마)
+   ============================================ */
+
+/* === 귀여운 테마 CSS 변수 오버라이드 === */
+.cute-theme {
+    --bg-primary: #FFF8F9;
+    --bg-secondary: #FFF0F3;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FFF5F7;
+    --text-primary: #3D3250;
+    --text-secondary: #7B6F8E;
+    --text-muted: #B8AEC8;
+    --neon-purple: #C084FC;
+    --neon-pink: #F9A8D4;
+    --neon-blue: #93C5FD;
+    --neon-green: #6EE7B7;
+    --neon-yellow: #FDE68A;
+    --neon-red: #FCA5A5;
+    --gradient-main: linear-gradient(135deg, #FF6B6B, #FFA07A);
+    --gradient-card: linear-gradient(145deg, #FFFFFF, #FFF5F7);
+    --shadow-glow: 0 4px 20px rgba(255, 107, 107, 0.15);
+    --shadow-card: 0 4px 16px rgba(255, 107, 107, 0.08);
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* 귀여운 테마 - 옵션 버튼 (이모지 카드형) */
+.cute-theme .option-btn {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(255, 107, 107, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 160, 122, 0.05), rgba(255, 107, 107, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cute-theme .option-btn:hover {
+    background: #FFF5F5;
+    border-color: var(--neon-red);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.18);
+    transform: translateY(-2px);
+}
+
+.cute-theme .option-btn:hover::before {
+    opacity: 1;
+}
+
+.cute-theme .option-btn.selected {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: var(--neon-red);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.2);
+    transform: scale(1.02);
+}
+
+.cute-theme .option-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #FF6B6B;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* 귀여운 테마 - 질문 카드 */
+.cute-theme .question-card {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(255, 107, 107, 0.1);
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.06);
+    position: relative;
+}
+
+.cute-theme .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-main);
+    border-radius: 24px 24px 0 0;
+}
+
+/* 귀여운 테마 - 프로그레스 */
+.cute-theme .progress-container {
+    background: var(--bg-primary);
+}
+
+.cute-theme .progress-bar {
+    background: rgba(255, 107, 107, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 프로그레스 바에 온도 아이콘 */
+.cute-theme .progress-fill {
+    position: relative;
+    background: var(--gradient-main);
+}
+
+.cute-theme .progress-fill::after {
+    content: '🌡️';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6rem;
+    filter: drop-shadow(0 0 2px rgba(255, 107, 107, 0.5));
+}
+
+/* 귀여운 테마 - 시작 버튼 */
+.cute-theme .start-btn {
+    background: var(--gradient-main);
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .start-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    animation: btnShine 3s ease-in-out infinite;
+}
+
+@keyframes btnShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.cute-theme .start-btn:hover {
+    box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4);
+}
+
+/* 귀여운 테마 - 로딩 스피너 */
+.cute-theme .calc-spinner {
+    border-color: rgba(255, 107, 107, 0.2);
+    border-top-color: #FF6B6B;
+}
+
+/* 귀여운 테마 - 토스트 */
+.cute-theme .toast {
+    background: #FFFFFF;
+    border-color: #FF6B6B;
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+}
+
+/* ============================================
+   온도계 UI - 프리미엄 디자인
+   ============================================ */
+
+.thermometer-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px auto;
+    position: relative;
+    padding: 20px;
+    width: 220px;
+}
+
+/* 스팀/열기 파티클 */
+.steam-particles {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 40px;
+    z-index: 5;
+}
+
+.steam-particle {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: steamRise 2s ease-out infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes steamRise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0.5);
+    }
+    30% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-40px) translateX(var(--x)) scale(1.2);
+    }
+}
+
+.thermometer-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    position: relative;
+}
+
+/* 온도 눈금 */
+.thermometer-scale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 220px;
+    position: relative;
+    padding-bottom: 0;
+}
+
+.scale-mark {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+    transform: translateY(50%);
+    white-space: nowrap;
+}
+
+/* 온도계 본체 */
+.thermometer-outer {
+    position: relative;
+    width: 60px;
+    height: 220px;
+    border: none;
+    border-radius: 30px 30px 0 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #FFF5F5, #FFF0F3);
+    box-shadow:
+        0 0 0 3px rgba(255, 107, 107, 0.12),
+        0 8px 32px rgba(255, 107, 107, 0.1),
+        inset 0 2px 8px rgba(255, 107, 107, 0.06);
+}
+
+/* 온도계 채우기 */
+.thermometer-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: height 2s cubic-bezier(0.4, 0, 0.2, 1),
+                background 1s ease;
+    border-radius: 0;
+}
+
+/* 온도 레벨별 색상 */
+.thermometer-fill.level-100 { background: linear-gradient(180deg, #FF4444, #FF6B6B); }
+.thermometer-fill.level-80 { background: linear-gradient(180deg, #FF8A65, #FFA07A); }
+.thermometer-fill.level-60 { background: linear-gradient(180deg, #FFCA28, #FFD93D); }
+.thermometer-fill.level-20 { background: linear-gradient(180deg, #4FC3F7, #74B9FF); }
+.thermometer-fill.level-0 { background: linear-gradient(180deg, #9575CD, #A29BFE); }
+
+/* 온도 표시 텍스트 */
+.thermometer-temp {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: white;
+    text-shadow:
+        0 1px 2px rgba(61, 50, 80, 0.2),
+        0 4px 12px rgba(61, 50, 80, 0.15);
+    z-index: 2;
+    letter-spacing: -0.5px;
+}
+
+/* 온도계 구근 (하단 둥근 부분) */
+.thermometer-bulb {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 3px rgba(255, 107, 107, 0.12),
+        0 8px 24px rgba(255, 107, 107, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+.thermometer-bulb.level-100 { background: linear-gradient(180deg, #FF6B6B, #FF4444); }
+.thermometer-bulb.level-80 { background: linear-gradient(180deg, #FFA07A, #FF8A65); }
+.thermometer-bulb.level-60 { background: linear-gradient(180deg, #FFD93D, #FFCA28); }
+.thermometer-bulb.level-20 { background: linear-gradient(180deg, #74B9FF, #4FC3F7); }
+.thermometer-bulb.level-0 { background: linear-gradient(180deg, #A29BFE, #9575CD); }
+
+.bulb-inner {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: bulbPulse 2s ease-in-out infinite;
+}
+
+.bulb-inner.level-100 { background: radial-gradient(circle, #FF8A80, #FF6B6B); }
+.bulb-inner.level-80 { background: radial-gradient(circle, #FFCCBC, #FFA07A); }
+.bulb-inner.level-60 { background: radial-gradient(circle, #FFF9C4, #FFD93D); }
+.bulb-inner.level-20 { background: radial-gradient(circle, #B3E5FC, #74B9FF); }
+.bulb-inner.level-0 { background: radial-gradient(circle, #D1C4E9, #A29BFE); }
+
+@keyframes bulbPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* 충전 반짝임 애니메이션 */
+.thermometer-fill::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: thermoShine 3s ease-in-out infinite;
+}
+
+@keyframes thermoShine {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(50%); }
+}
+
+/* 물결 효과 (온도계 상단) */
+.thermometer-fill::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -10%;
+    width: 120%;
+    height: 8px;
+    background: inherit;
+    filter: blur(2px);
+    opacity: 0.5;
+    border-radius: 50%;
+    animation: thermoWave 2s ease-in-out infinite;
+}
+
+@keyframes thermoWave {
+    0%, 100% { transform: scaleX(0.9) scaleY(1); }
+    50% { transform: scaleX(1.1) scaleY(1.5); }
+}
+
+/* 온도계 옆 이모지 */
+.thermometer-emoji {
+    font-size: 3rem;
+    margin-top: 12px;
+    animation: emojiFloat 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(255, 107, 107, 0.2));
+}
+
+@keyframes emojiFloat {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.1) translateY(-6px); }
+}
+
+/* ============================================
+   결과 캡처용
+   ============================================ */
+#resultCapture {
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #FFF8F9, #FFF0F3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 결과 배경 데코 */
+#resultCapture::before {
+    content: '🔥 ❄️ 🔥';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    opacity: 0.3;
+    letter-spacing: 12px;
+}
+
+/* ============================================
+   쿨링 방법 카드 - 글래스모피즘
+   ============================================ */
+.cooling-section {
+    margin-top: 32px;
+}
+
+.cooling-section h3 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.cooling-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 16px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 107, 107, 0.1);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.06);
+    transition: all 0.3s ease;
+}
+
+.cooling-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 107, 107, 0.12);
+    border-color: rgba(255, 160, 122, 0.2);
+}
+
+.cooling-card .cooling-emoji {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.08), rgba(255, 160, 122, 0.08));
+    border-radius: 14px;
+}
+
+.cooling-card .cooling-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.cooling-card .cooling-text strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   궁합 섹션 - 아바타 카드형
+   ============================================ */
+.match-section {
+    margin-top: 28px;
+    padding: 24px 20px;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.04), rgba(255, 160, 122, 0.06));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 160, 122, 0.12);
+    text-align: center;
+}
+
+.match-section h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.match-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 107, 107, 0.08);
+    transition: all 0.2s ease;
+}
+
+.match-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.08);
+}
+
+.match-item:last-child {
+    margin-bottom: 0;
+}
+
+.match-item .match-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.08), rgba(255, 160, 122, 0.08));
+    border-radius: 14px;
+}
+
+.match-item .match-info {
+    flex: 1;
+}
+
+.match-item .match-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.match-item .match-name {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* ============================================
+   위험 경고 (높은 온도) - 더 눈에 띄게
+   ============================================ */
+.high-temp-warning {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.08), rgba(255, 160, 122, 0.08));
+    border: 1.5px solid rgba(255, 107, 107, 0.2);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    animation: warningPulse 2s ease-in-out infinite;
+}
+
+@keyframes warningPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.08); }
+}
+
+.high-temp-warning p {
+    font-size: 0.9rem;
+    color: #D9534F;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* ============================================
+   바이럴 CTA 섹션
+   ============================================ */
+.viral-cta {
+    margin-top: 28px;
+    padding: 28px 24px;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.06), rgba(255, 160, 122, 0.08));
+    border-radius: var(--radius-lg);
+    border: 2px dashed rgba(255, 107, 107, 0.3);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.viral-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255, 107, 107, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.viral-cta-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.viral-cta-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.viral-cta-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--gradient-main);
+    color: white;
+    border: none;
+    border-radius: var(--radius-xl);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.viral-cta-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    animation: btnShine 3s ease-in-out infinite;
+}
+
+.viral-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4);
+}
+
+/* ============================================
+   유형 미리보기 그리드
+   ============================================ */
+.type-teaser-section {
+    margin-top: 28px;
+}
+
+.type-teaser-section h3 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.type-teaser-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.type-teaser-card {
+    padding: 16px 12px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1.5px solid rgba(255, 107, 107, 0.08);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.04);
+    transition: all 0.3s ease;
+}
+
+.type-teaser-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.08);
+}
+
+.type-teaser-card .teaser-emoji {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.type-teaser-card .teaser-name {
+    font-weight: 500;
+}
+
+.type-teaser-card.current {
+    border-color: #FF6B6B;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.06), rgba(255, 160, 122, 0.04));
+    color: var(--text-primary);
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.12);
+    position: relative;
+}
+
+.type-teaser-card.current::after {
+    content: '← 나!';
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.65rem;
+    color: #FF6B6B;
+    font-weight: 700;
+}
+
+/* 홀수 마지막 아이템 - 가운데 정렬 */
+.type-teaser-grid .type-teaser-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 5px);
+    justify-self: center;
+}
+
+/* ============================================
+   귀여운 데코 & 결과 타이틀
+   ============================================ */
+.cute-sparkle {
+    display: inline-block;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* 결과 타이틀 프리미엄 */
+.cute-theme .result-type-name {
+    font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+}
+
+.cute-theme .result-title {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.cute-theme .result-description {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 16px 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 107, 107, 0.06);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* 선택 시 confetti 효과 */
+@keyframes confettiPop {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
+}
+
+.option-btn.selected .confetti {
+    position: absolute;
+    animation: confettiPop 0.6s ease-out forwards;
+}
+
+/* ============================================
+   다크모드 오버라이드
+   ============================================ */
+[data-theme="dark"] .thermometer-outer {
+    background: linear-gradient(180deg, #2A2438, #332D42);
+    box-shadow:
+        0 0 0 3px rgba(255, 107, 107, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 2px 8px rgba(255, 107, 107, 0.06);
+}
+
+[data-theme="dark"] .thermometer-bulb {
+    box-shadow:
+        0 0 0 3px rgba(255, 107, 107, 0.15),
+        0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .cooling-card {
+    background: rgba(42, 36, 56, 0.7);
+    border-color: rgba(255, 107, 107, 0.1);
+}
+
+[data-theme="dark"] .match-section {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.04), rgba(255, 160, 122, 0.06));
+    border-color: rgba(255, 160, 122, 0.12);
+}
+
+[data-theme="dark"] .match-item {
+    background: rgba(42, 36, 56, 0.7);
+    border-color: rgba(255, 107, 107, 0.08);
+}
+
+[data-theme="dark"] #resultCapture {
+    background: linear-gradient(180deg, #1A1625, #221D30);
+}
+
+[data-theme="dark"] .viral-cta {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.06), rgba(255, 160, 122, 0.08));
+    border-color: rgba(255, 107, 107, 0.2);
+}
+
+[data-theme="dark"] .high-temp-warning {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.08), rgba(255, 160, 122, 0.08));
+    border-color: rgba(255, 107, 107, 0.2);
+}
+
+[data-theme="dark"] .type-teaser-card {
+    background: var(--bg-card);
+    border-color: rgba(255, 107, 107, 0.08);
+}
+
+[data-theme="dark"] .cute-theme .result-description {
+    background: rgba(42, 36, 56, 0.5);
+    border-color: rgba(255, 107, 107, 0.06);
+}
+
+[data-theme="dark"] .cute-theme .option-btn {
+    background: var(--bg-card);
+    border-color: rgba(255, 107, 107, 0.12);
+}
+
+[data-theme="dark"] .cute-theme .option-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: #FF6B6B;
+}
+
+[data-theme="dark"] .cute-theme .option-btn.selected {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: #FF6B6B;
+}
+
+[data-theme="dark"] .cute-theme .question-card {
+    background: var(--bg-card);
+    border-color: rgba(255, 107, 107, 0.1);
+}
+
+[data-theme="dark"] .scale-mark {
+    color: rgba(255, 255, 255, 0.4);
+}

@@ -3,77 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>나의 사회적 배터리 유형 | 찐테스트</title>
+    <title>찐테스트 | 나를 알아보는 바이럴 심리테스트</title>
 
     <!-- OG Tags -->
-    <meta property="og:title" content="나의 사회적 배터리 유형 테스트">
-    <meta property="og:description" content="나의 사회적 에너지 유형은? 친구랑 비교해봐! 💕">
+    <meta property="og:title" content="찐테스트 - 나를 알아보는 바이럴 심리테스트">
+    <meta property="og:description" content="MZ세대를 위한 바이럴 심리테스트! 뇌 속 탭, 사회적 배터리, 연애 알고리즘 등 다양한 테스트를 즐겨보세요 💕">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://nick1148.github.io/LGI/assets/og-social-battery.svg">
+    <meta property="og:image" content="https://nick1148.github.io/LGI/assets/og-social-battery.png">
+    <meta property="og:url" content="https://nick1148.github.io/LGI/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="나의 사회적 배터리 유형 테스트">
-    <meta name="twitter:description" content="나의 사회적 에너지 유형은? 친구랑 비교해봐! 💕">
-    <meta name="twitter:image" content="https://nick1148.github.io/LGI/assets/og-social-battery.svg">
+    <meta name="twitter:title" content="찐테스트 - 나를 알아보는 바이럴 심리테스트">
+    <meta name="twitter:description" content="MZ세대를 위한 바이럴 심리테스트! 다양한 테스트를 즐겨보세요 💕">
+    <meta name="twitter:image" content="https://nick1148.github.io/LGI/assets/og-social-battery.png">
 
     <!-- SEO -->
-    <meta name="description" content="나의 사회적 배터리 유형 테스트 - 나의 사회적 에너지 유형은 뭘까? 5개의 질문으로 알아보는 바이럴 심리테스트!">
-    <meta name="keywords" content="사회적배터리, 심리테스트, 성격테스트, MBTI, 바이럴테스트, 찐테스트">
+    <meta name="description" content="찐테스트 - MZ세대를 위한 바이럴 심리테스트 플랫폼. 뇌 속 브라우저 탭, 사회적 배터리, 연애 알고리즘, 스트레스 온도계, 돈 쓰는 유형 등 재미있는 심리테스트!">
+    <meta name="keywords" content="심리테스트, 바이럴테스트, MBTI, 성격테스트, 찐테스트, MZ세대, 연애테스트">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 
     <!-- Pretendard Font -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
-    <!-- html2canvas -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
-
     <link rel="stylesheet" href="shared/css/common.css">
-    <link rel="stylesheet" href="shared/css/ad-slot.css">
-    <link rel="stylesheet" href="social-battery/css/style.css">
+    <style>
+        .landing-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            min-height: 100vh;
+        }
+        .landing-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .landing-emoji {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        .landing-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .landing-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .test-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .test-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            box-shadow: 0 4px 24px rgba(192, 132, 252, 0.08);
+            border: 1px solid rgba(192, 132, 252, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .test-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(192, 132, 252, 0.15);
+        }
+        .test-card-emoji {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        .test-card-info {
+            flex: 1;
+        }
+        .test-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .test-card-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .test-card-arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .hot-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #C084FC, #F9A8D4);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .new-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6EE7B7, #3B82F6);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .landing-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+    </style>
 </head>
 <body class="cute-theme">
     <button class="theme-toggle" id="themeToggle" aria-label="다크모드 전환">☀️</button>
-    <!-- 프로그레스 바 -->
-    <div class="progress-container" id="progressContainer" style="display:none;">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-        </div>
-        <div class="progress-text" id="progressText">1 / 5</div>
-    </div>
 
-    <div class="container">
-        <!-- 시작 화면 -->
-        <div class="start-screen" id="startScreen">
-            <div class="start-emoji">💕</div>
-            <h1 class="start-title">
-                나의 사회적<br><span class="text-gradient">배터리 유형</span>
-            </h1>
-            <p class="start-description">
-                나의 사회적 에너지 유형은 뭘까? 💭<br>
-                5개의 질문으로 알아보는 나만의 유형!
-            </p>
-            <button class="start-btn" id="startBtn">시작하기 💕</button>
-            <p style="margin-top:16px; font-size:0.8rem; color:var(--text-muted);">약 1분 소요</p>
+    <div class="landing-container">
+        <div class="landing-header">
+            <div class="landing-emoji">✨</div>
+            <h1 class="landing-title"><span class="text-gradient">찐테스트</span></h1>
+            <p class="landing-subtitle">나를 알아보는 바이럴 심리테스트</p>
         </div>
 
-        <!-- 질문 영역 -->
-        <div id="questionArea" style="display:none; padding-top:60px; min-height:100vh;"></div>
+        <div class="test-grid">
+            <a href="brain-tabs/" class="test-card">
+                <span class="test-card-emoji">🧠</span>
+                <div class="test-card-info">
+                    <div class="test-card-title">나의 뇌 속 브라우저 탭 <span class="hot-badge">HOT</span></div>
+                    <div class="test-card-desc">당신의 뇌에는 지금 탭이 몇 개 열려있을까?</div>
+                </div>
+                <span class="test-card-arrow">→</span>
+            </a>
 
-        <!-- 계산 중 화면 -->
-        <div class="calculating-screen" id="calcScreen">
-            <div class="calc-character" id="calcChar">🔋</div>
-            <p class="calc-text">당신의 배터리 유형을 분석하고 있어요 💭</p>
-            <div class="calc-progress"><div class="calc-progress-fill" id="calcProgress"></div></div>
+            <a href="social-battery/" class="test-card">
+                <span class="test-card-emoji">🔋</span>
+                <div class="test-card-info">
+                    <div class="test-card-title">나의 사회적 배터리 잔량 <span class="hot-badge">HOT</span></div>
+                    <div class="test-card-desc">당신의 사회적 배터리는 지금 몇 %?</div>
+                </div>
+                <span class="test-card-arrow">→</span>
+            </a>
+
+            <a href="love-algorithm/" class="test-card">
+                <span class="test-card-emoji">💘</span>
+                <div class="test-card-info">
+                    <div class="test-card-title">나의 연애 알고리즘 <span class="new-badge">NEW</span></div>
+                    <div class="test-card-desc">당신의 연애 스타일은 어떤 알고리즘?</div>
+                </div>
+                <span class="test-card-arrow">→</span>
+            </a>
+
+            <a href="stress-temp/" class="test-card">
+                <span class="test-card-emoji">🌡️</span>
+                <div class="test-card-info">
+                    <div class="test-card-title">나의 스트레스 온도계 <span class="new-badge">NEW</span></div>
+                    <div class="test-card-desc">당신의 스트레스 온도는 지금 몇 도?</div>
+                </div>
+                <span class="test-card-arrow">→</span>
+            </a>
+
+            <a href="money-type/" class="test-card">
+                <span class="test-card-emoji">💰</span>
+                <div class="test-card-info">
+                    <div class="test-card-title">나의 돈 쓰는 유형 <span class="new-badge">NEW</span></div>
+                    <div class="test-card-desc">당신의 소비 성향은 어떤 유형?</div>
+                </div>
+                <span class="test-card-arrow">→</span>
+            </a>
         </div>
 
-        <!-- 결과 화면 -->
-        <div id="resultArea" style="display:none;"></div>
+        <div class="landing-footer">
+            <p>찐테스트 | 나를 알아보는 바이럴 심리테스트</p>
+        </div>
     </div>
 
     <script src="shared/js/config.js"></script>
-    <script src="shared/js/share.js"></script>
-    <script src="shared/js/ad-manager.js"></script>
+    <script src="shared/js/analytics.js"></script>
     <script src="shared/js/theme.js"></script>
-    <script src="social-battery/js/app.js"></script>
 </body>
 </html>

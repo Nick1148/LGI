@@ -143,6 +143,7 @@ const SocialBatteryTest = {
     },
 
     start() {
+        Analytics.testStart('social-battery');
         document.getElementById('startScreen').style.display = 'none';
         document.getElementById('progressContainer').style.display = 'block';
         document.getElementById('questionArea').style.display = 'block';
@@ -191,6 +192,7 @@ const SocialBatteryTest = {
 
         this.score += score;
         this.answers.push(score);
+        Analytics.questionAnswer('social-battery', this.currentQ, score);
 
         setTimeout(() => {
             if (this.currentQ < this.questions.length - 1) {
@@ -280,6 +282,7 @@ const SocialBatteryTest = {
         const r = this.results[type];
         const resultArea = document.getElementById('resultArea');
         resultArea.style.display = 'block';
+        Analytics.resultView('social-battery', type);
 
         const isLow = percent < 40;
 
@@ -400,10 +403,25 @@ const SocialBatteryTest = {
             <!-- 다른 테스트 -->
             <div class="other-tests">
                 <h3>다른 테스트도 해보세요!</h3>
-                <a href="${window.location.pathname.includes('/social-battery/') ? '../brain-tabs/' : 'brain-tabs/'}" class="test-link-card">
+                <a href="../brain-tabs/" class="test-link-card">
                     <span class="emoji">🧠</span>
                     <span class="title">나의 뇌 속 브라우저 탭</span>
                     <span class="desc">당신의 뇌에는 지금 탭이 몇 개 열려있을까?</span>
+                </a>
+                <a href="../love-algorithm/" class="test-link-card">
+                    <span class="emoji">💘</span>
+                    <span class="title">나의 연애 알고리즘</span>
+                    <span class="desc">당신의 연애 스타일은 어떤 알고리즘?</span>
+                </a>
+                <a href="../stress-temp/" class="test-link-card">
+                    <span class="emoji">🌡️</span>
+                    <span class="title">나의 스트레스 온도계</span>
+                    <span class="desc">당신의 스트레스 온도는 지금 몇 도?</span>
+                </a>
+                <a href="../money-type/" class="test-link-card">
+                    <span class="emoji">💰</span>
+                    <span class="title">나의 돈 쓰는 유형</span>
+                    <span class="desc">당신의 소비 성향은 어떤 유형?</span>
                 </a>
             </div>
 

@@ -1,0 +1,632 @@
+/* ============================================
+   나의 돈 쓰는 유형 - 전용 스타일 (뱅킹/월렛 테마)
+   ============================================ */
+
+/* === 머니 테마 CSS 변수 오버라이드 === */
+.cute-theme {
+    --bg-primary: #F5FFF7;
+    --bg-secondary: #EDFFF1;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F0FFF4;
+    --text-primary: #2D3A2E;
+    --text-secondary: #5E7A60;
+    --text-muted: #A3BCA5;
+    --neon-purple: #6EE7B7;
+    --neon-pink: #FBBF24;
+    --neon-blue: #93C5FD;
+    --neon-green: #6EE7B7;
+    --neon-yellow: #FBBF24;
+    --neon-red: #FCA5A5;
+    --gradient-main: linear-gradient(135deg, #6EE7B7, #FBBF24);
+    --gradient-card: linear-gradient(145deg, #FFFFFF, #F0FFF4);
+    --shadow-glow: 0 4px 20px rgba(110, 231, 183, 0.15);
+    --shadow-card: 0 4px 16px rgba(110, 231, 183, 0.08);
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* 머니 테마 - 옵션 버튼 */
+.cute-theme .option-btn {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(110, 231, 183, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(110, 231, 183, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), rgba(110, 231, 183, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cute-theme .option-btn:hover {
+    background: #F0FFF4;
+    border-color: var(--neon-green);
+    box-shadow: 0 4px 16px rgba(110, 231, 183, 0.18);
+    transform: translateY(-2px);
+}
+
+.cute-theme .option-btn:hover::before {
+    opacity: 1;
+}
+
+.cute-theme .option-btn.selected {
+    background: rgba(110, 231, 183, 0.1);
+    border-color: var(--neon-green);
+    box-shadow: 0 4px 16px rgba(110, 231, 183, 0.2);
+    transform: scale(1.02);
+}
+
+.cute-theme .option-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #10B981;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* 머니 테마 - 질문 카드 */
+.cute-theme .question-card {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(110, 231, 183, 0.1);
+    box-shadow: 0 4px 20px rgba(110, 231, 183, 0.06);
+    position: relative;
+}
+
+.cute-theme .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-main);
+    border-radius: 24px 24px 0 0;
+}
+
+/* 머니 테마 - 프로그레스 */
+.cute-theme .progress-container {
+    background: var(--bg-primary);
+}
+
+.cute-theme .progress-bar {
+    background: rgba(110, 231, 183, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .progress-fill {
+    position: relative;
+    background: var(--gradient-main);
+}
+
+.cute-theme .progress-fill::after {
+    content: '💰';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6rem;
+    filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.5));
+}
+
+/* 머니 테마 - 시작 버튼 */
+.cute-theme .start-btn {
+    box-shadow: 0 4px 20px rgba(110, 231, 183, 0.3);
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cute-theme .start-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    animation: btnShine 3s ease-in-out infinite;
+}
+
+@keyframes btnShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.cute-theme .start-btn:hover {
+    box-shadow: 0 8px 30px rgba(110, 231, 183, 0.4);
+}
+
+/* 머니 테마 - 로딩 스피너 */
+.cute-theme .calc-spinner {
+    border-color: rgba(110, 231, 183, 0.2);
+    border-top-color: var(--neon-green);
+}
+
+/* 머니 테마 - 토스트 */
+.cute-theme .toast {
+    background: #FFFFFF;
+    border-color: var(--neon-green);
+    box-shadow: 0 4px 20px rgba(110, 231, 183, 0.2);
+}
+
+/* ============================================
+   월렛 카드 UI - 프리미엄 디자인
+   ============================================ */
+
+.wallet-card {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin: 24px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    animation: walletSlideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes walletSlideIn {
+    0% { opacity: 0; transform: translateY(30px) scale(0.9) rotateX(10deg); }
+    100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+}
+
+.wallet-card-inner {
+    padding: 28px 24px;
+    position: relative;
+    color: white;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 월렛 카드 그라디언트별 색상 */
+.wallet-empty .wallet-card-inner {
+    background: linear-gradient(135deg, #FF6B6B, #FF8E8E, #FFA8A8);
+}
+
+.wallet-full .wallet-card-inner {
+    background: linear-gradient(135deg, #2D9CDB, #56CCF2, #7EDCF5);
+}
+
+.wallet-roller .wallet-card-inner {
+    background: linear-gradient(135deg, #F2994A, #F2C94C, #F5D76E);
+}
+
+.wallet-packed .wallet-card-inner {
+    background: linear-gradient(135deg, #27AE60, #6FCF97, #A8E6CF);
+}
+
+.wallet-stable .wallet-card-inner {
+    background: linear-gradient(135deg, #6C5CE7, #A29BFE, #C3B9FF);
+}
+
+/* 카드 칩 */
+.wallet-chip {
+    width: 40px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.15));
+    border: 1px solid rgba(255,255,255,0.3);
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.wallet-chip::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 16px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+/* 카드 내부 요소 */
+.wallet-type-emoji {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    animation: emojiFloat 3s ease-in-out infinite;
+}
+
+@keyframes emojiFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.wallet-type-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    margin-bottom: 12px;
+}
+
+.wallet-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.wallet-status-label {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+.wallet-status-value {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.wallet-card-number {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-align: right;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+/* 카드 반짝임 효과 */
+.wallet-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.12) 50%,
+        transparent 70%
+    );
+    animation: cardShine 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes cardShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    50% { transform: translateX(100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* ============================================
+   소비 패턴 그래프
+   ============================================ */
+
+.spending-pattern-section {
+    margin-top: 28px;
+    padding: 24px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(110, 231, 183, 0.12);
+    box-shadow: 0 4px 16px rgba(110, 231, 183, 0.06);
+}
+
+.spending-pattern-section h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.spending-pattern-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.spending-graph {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    height: 120px;
+    padding: 0 8px;
+}
+
+.spending-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 48px;
+}
+
+.spending-bar-bg {
+    width: 100%;
+    height: 100px;
+    background: rgba(110, 231, 183, 0.08);
+    border-radius: 8px 8px 4px 4px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.spending-bar-fill {
+    width: 100%;
+    border-radius: 8px 8px 4px 4px;
+    background: var(--gradient-main);
+    transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    min-height: 4px;
+}
+
+.spending-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25), transparent);
+    border-radius: 8px 8px 0 0;
+}
+
+.spending-bar-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* ============================================
+   결과 캡처용
+   ============================================ */
+#resultCapture {
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #F5FFF7, #EDFFF1);
+    position: relative;
+    overflow: hidden;
+}
+
+#resultCapture::before {
+    content: '💰 💳 💵';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    opacity: 0.3;
+    letter-spacing: 12px;
+}
+
+/* ============================================
+   궁합 섹션
+   ============================================ */
+.compatibility {
+    margin-top: 28px;
+    padding: 24px 20px;
+    background: linear-gradient(135deg, rgba(110, 231, 183, 0.04), rgba(251, 191, 36, 0.06));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(110, 231, 183, 0.12);
+    text-align: center;
+}
+
+.compatibility h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.compatibility .good-match,
+.compatibility .bad-match {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    border: 1px solid rgba(110, 231, 183, 0.08);
+    transition: all 0.2s ease;
+}
+
+.compatibility .good-match:hover,
+.compatibility .bad-match:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(110, 231, 183, 0.08);
+}
+
+.compatibility .bad-match {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   특성 태그
+   ============================================ */
+.trait-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.trait-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(110, 231, 183, 0.1), rgba(251, 191, 36, 0.08));
+    border: 1px solid rgba(110, 231, 183, 0.15);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.trait-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(110, 231, 183, 0.15);
+    background: linear-gradient(135deg, rgba(110, 231, 183, 0.18), rgba(251, 191, 36, 0.12));
+}
+
+/* ============================================
+   결과 타이틀 & 설명
+   ============================================ */
+.cute-theme .result-type-name {
+    font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+}
+
+.cute-theme .result-title {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.cute-theme .result-description {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 16px 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(110, 231, 183, 0.06);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    text-align: center;
+    color: var(--text-secondary);
+    margin-top: 16px;
+}
+
+/* ============================================
+   confetti 효과
+   ============================================ */
+@keyframes confettiPop {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
+}
+
+.option-btn.selected .confetti {
+    position: absolute;
+    animation: confettiPop 0.6s ease-out forwards;
+}
+
+/* ============================================
+   다크모드 오버라이드
+   ============================================ */
+[data-theme="dark"] .cute-theme,
+[data-theme="dark"].cute-theme {
+    --bg-primary: #1A2E1C;
+    --bg-secondary: #1F331F;
+    --bg-card: #243426;
+    --bg-card-hover: #2A3D2C;
+    --text-primary: #E0F0E2;
+    --text-secondary: #A3C4A5;
+    --text-muted: #6B8F6D;
+    --gradient-main: linear-gradient(135deg, #34D399, #D97706);
+    --shadow-glow: 0 4px 20px rgba(52, 211, 153, 0.15);
+    --shadow-card: 0 4px 16px rgba(52, 211, 153, 0.08);
+}
+
+[data-theme="dark"] .wallet-card-inner {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .spending-pattern-section {
+    background: rgba(36, 52, 38, 0.7);
+    border-color: rgba(52, 211, 153, 0.12);
+}
+
+[data-theme="dark"] .spending-bar-bg {
+    background: rgba(52, 211, 153, 0.08);
+}
+
+[data-theme="dark"] .compatibility {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.04), rgba(217, 119, 6, 0.06));
+    border-color: rgba(52, 211, 153, 0.12);
+}
+
+[data-theme="dark"] .compatibility .good-match,
+[data-theme="dark"] .compatibility .bad-match {
+    background: rgba(36, 52, 38, 0.7);
+    border-color: rgba(52, 211, 153, 0.08);
+}
+
+[data-theme="dark"] #resultCapture {
+    background: linear-gradient(180deg, #1A2E1C, #1F331F);
+}
+
+[data-theme="dark"] .trait-tag {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(217, 119, 6, 0.08));
+    border-color: rgba(52, 211, 153, 0.15);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .cute-theme .option-btn,
+[data-theme="dark"] .option-btn {
+    background: var(--bg-card);
+    border-color: rgba(52, 211, 153, 0.12);
+}
+
+[data-theme="dark"] .cute-theme .option-btn:hover,
+[data-theme="dark"] .option-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--neon-green);
+}
+
+[data-theme="dark"] .cute-theme .option-btn.selected,
+[data-theme="dark"] .option-btn.selected {
+    background: rgba(52, 211, 153, 0.1);
+    border-color: var(--neon-green);
+}
+
+[data-theme="dark"] .cute-theme .question-card,
+[data-theme="dark"] .question-card {
+    background: var(--bg-card);
+    border-color: rgba(52, 211, 153, 0.1);
+}
+
+[data-theme="dark"] .cute-theme .result-description {
+    background: rgba(36, 52, 38, 0.5);
+    border-color: rgba(52, 211, 153, 0.06);
+}
+
+[data-theme="dark"] .wallet-status {
+    background: rgba(0, 0, 0, 0.2);
+}

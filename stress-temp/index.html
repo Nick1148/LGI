@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>나의 사회적 배터리 유형 | 찐테스트</title>
+    <title>나의 스트레스 온도계 | 찐테스트</title>
 
     <!-- OG Tags -->
-    <meta property="og:title" content="나의 사회적 배터리 유형 테스트">
-    <meta property="og:description" content="나의 사회적 에너지 유형은? 친구랑 비교해봐! 💕">
+    <meta property="og:title" content="나의 스트레스 온도계 테스트">
+    <meta property="og:description" content="당신의 스트레스 온도는 지금 몇 도? 🌡️">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://nick1148.github.io/LGI/assets/og-social-battery.png">
-    <meta property="og:url" content="https://nick1148.github.io/LGI/social-battery/">
+    <meta property="og:image" content="https://nick1148.github.io/LGI/assets/og-stress-temp.png">
+    <meta property="og:url" content="https://nick1148.github.io/LGI/stress-temp/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="나의 사회적 배터리 유형 테스트">
-    <meta name="twitter:description" content="나의 사회적 에너지 유형은? 친구랑 비교해봐! 💕">
-    <meta name="twitter:image" content="https://nick1148.github.io/LGI/assets/og-social-battery.png">
-
-    <!-- SEO -->
-    <meta name="description" content="나의 사회적 배터리 유형 테스트 - 나의 사회적 에너지 유형은 뭘까? 5개의 질문으로 알아보는 바이럴 심리테스트!">
-    <meta name="keywords" content="사회적배터리, 심리테스트, 성격테스트, MBTI, 바이럴테스트, 찐테스트">
+    <meta name="twitter:title" content="나의 스트레스 온도계 테스트">
+    <meta name="twitter:description" content="당신의 스트레스 온도는 지금 몇 도? 🌡️">
+    <meta name="twitter:image" content="https://nick1148.github.io/LGI/assets/og-stress-temp.png">
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -29,7 +25,7 @@
     <!-- Pretendard Font -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
-    <!-- html2canvas -->
+    <!-- html2canvas for result image -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 
     <link rel="stylesheet" href="../shared/css/common.css">
@@ -46,33 +42,35 @@
         <div class="progress-text" id="progressText">1 / 5</div>
     </div>
 
+    <!-- 시작 화면 -->
     <div class="container">
-        <!-- 시작 화면 -->
         <div class="start-screen" id="startScreen">
-            <div class="start-emoji">💕</div>
+            <div class="start-emoji">🌡️</div>
             <h1 class="start-title">
-                나의 사회적<br><span class="text-gradient">배터리 유형</span>
+                나의 스트레스<br><span class="text-gradient">온도계</span>
             </h1>
             <p class="start-description">
-                나의 사회적 에너지 유형은 뭘까? 💭<br>
-                5개의 질문으로 알아보는 나만의 유형!
+                나의 스트레스 반응 온도는 몇 도일까? 🔥<br>
+                5개의 질문으로 알아보는 나의 스트레스 유형!
             </p>
-            <button class="start-btn" id="startBtn">시작하기 💕</button>
+            <button class="start-btn" id="startBtn">측정 시작 🌡️</button>
             <p style="margin-top:16px; font-size:0.8rem; color:var(--text-muted);">약 1분 소요</p>
         </div>
 
         <!-- 질문 영역 -->
-        <div id="questionArea" style="display:none; padding-top:60px; min-height:100vh;"></div>
+        <div id="questionArea" style="display:none; padding-top:60px; min-height:100vh;">
+        </div>
 
         <!-- 계산 중 화면 -->
         <div class="calculating-screen" id="calcScreen">
-            <div class="calc-character" id="calcChar">🔋</div>
-            <p class="calc-text">당신의 배터리 유형을 분석하고 있어요 💭</p>
+            <div class="calc-character" id="calcChar">🌡️</div>
+            <p class="calc-text">스트레스 온도를 측정하고 있어요 🌡️</p>
             <div class="calc-progress"><div class="calc-progress-fill" id="calcProgress"></div></div>
         </div>
 
         <!-- 결과 화면 -->
-        <div id="resultArea" style="display:none;"></div>
+        <div id="resultArea" style="display:none;">
+        </div>
     </div>
 
     <script src="../shared/js/config.js"></script>
