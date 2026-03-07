@@ -130,6 +130,94 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
+
+        /* --- 소셜 프루프: 참여자 카운터 --- */
+        .participant-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(192, 132, 252, 0.1);
+            border-radius: 24px;
+            padding: 8px 18px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            box-shadow: 0 2px 12px rgba(192, 132, 252, 0.06);
+        }
+        .participant-dot {
+            width: 7px;
+            height: 7px;
+            background: #6EE7B7;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+            box-shadow: 0 0 6px rgba(110, 231, 183, 0.4);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* --- 카드별 참여자 수 --- */
+        .card-participants {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
+            color: #6EE7B7;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .card-participants .dot {
+            width: 5px;
+            height: 5px;
+            background: #6EE7B7;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        /* --- 인기 순위 뱃지 --- */
+        .rank-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        /* --- 후기 캐러셀 --- */
+        .review-carousel {
+            text-align: center;
+            margin-bottom: 28px;
+            height: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .review-item {
+            position: absolute;
+            left: 0;
+            right: 0;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .review-item.active {
+            opacity: 1;
+        }
+
+        /* --- 다크모드 보정 --- */
+        body.dark-mode .participant-count {
+            background: rgba(30, 30, 30, 0.7);
+            border-color: rgba(192, 132, 252, 0.15);
+        }
     </style>
 </head>
 <body class="cute-theme">
@@ -140,14 +228,27 @@
             <div class="landing-emoji">✨</div>
             <h1 class="landing-title"><span class="text-gradient">찐테스트</span></h1>
             <p class="landing-subtitle">나를 알아보는 바이럴 심리테스트</p>
+            <div class="participant-count">
+                <span class="participant-dot"></span>
+                <span>지금 <strong id="totalCount">0</strong>명이 테스트 중!</span>
+            </div>
+        </div>
+
+        <!-- 후기 캐러셀 -->
+        <div class="review-carousel" id="reviewCarousel">
+            <div class="review-item active">"결과 소름.. 완전 나잖아ㅋㅋ 😂" - 김*은</div>
+            <div class="review-item">"친구한테 공유했더니 완전 난리남 🔥" - 이*준</div>
+            <div class="review-item">"이거 진짜 MBTI보다 정확한 듯 👀" - 박*희</div>
+            <div class="review-item">"다른 테스트도 다 해봄ㅋㅋ 중독됨 💜" - 최*우</div>
         </div>
 
         <div class="test-grid">
             <a href="brain-tabs/" class="test-card">
                 <span class="test-card-emoji">🧠</span>
                 <div class="test-card-info">
-                    <div class="test-card-title">나의 뇌 속 브라우저 탭 <span class="hot-badge">HOT</span></div>
+                    <div class="test-card-title">나의 뇌 속 브라우저 탭 <span class="hot-badge">HOT</span> <span class="rank-badge">인기 1위</span></div>
                     <div class="test-card-desc">당신의 뇌에는 지금 탭이 몇 개 열려있을까?</div>
+                    <span class="card-participants"><span class="dot"></span> <span class="count" data-base="8234">참여 중</span></span>
                 </div>
                 <span class="test-card-arrow">→</span>
             </a>
@@ -157,6 +258,7 @@
                 <div class="test-card-info">
                     <div class="test-card-title">나의 사회적 배터리 잔량 <span class="hot-badge">HOT</span></div>
                     <div class="test-card-desc">당신의 사회적 배터리는 지금 몇 %?</div>
+                    <span class="card-participants"><span class="dot"></span> <span class="count" data-base="6513">참여 중</span></span>
                 </div>
                 <span class="test-card-arrow">→</span>
             </a>
@@ -166,6 +268,7 @@
                 <div class="test-card-info">
                     <div class="test-card-title">나의 연애 알고리즘 <span class="new-badge">NEW</span></div>
                     <div class="test-card-desc">당신의 연애 스타일은 어떤 알고리즘?</div>
+                    <span class="card-participants"><span class="dot"></span> <span class="count" data-base="4127">참여 중</span></span>
                 </div>
                 <span class="test-card-arrow">→</span>
             </a>
@@ -175,6 +278,7 @@
                 <div class="test-card-info">
                     <div class="test-card-title">나의 스트레스 온도계 <span class="new-badge">NEW</span></div>
                     <div class="test-card-desc">당신의 스트레스 온도는 지금 몇 도?</div>
+                    <span class="card-participants"><span class="dot"></span> <span class="count" data-base="3891">참여 중</span></span>
                 </div>
                 <span class="test-card-arrow">→</span>
             </a>
@@ -184,6 +288,7 @@
                 <div class="test-card-info">
                     <div class="test-card-title">나의 돈 쓰는 유형 <span class="new-badge">NEW</span></div>
                     <div class="test-card-desc">당신의 소비 성향은 어떤 유형?</div>
+                    <span class="card-participants"><span class="dot"></span> <span class="count" data-base="2756">참여 중</span></span>
                 </div>
                 <span class="test-card-arrow">→</span>
             </a>
@@ -197,5 +302,42 @@
     <script src="shared/js/config.js"></script>
     <script src="shared/js/analytics.js"></script>
     <script src="shared/js/theme.js"></script>
+    <script>
+    (function() {
+        // 히어로 카운트업 애니메이션
+        var totalEl = document.getElementById('totalCount');
+        var target = 12847 + Math.floor(Math.random() * 500);
+        var current = 0;
+        var steps = 60;
+        var increment = target / steps;
+        var frame = 0;
+        function countUp() {
+            frame++;
+            current = Math.min(Math.round(increment * frame), target);
+            totalEl.textContent = current.toLocaleString();
+            if (frame < steps) {
+                setTimeout(countUp, 30);
+            }
+        }
+        countUp();
+
+        // 카드별 참여자 수 렌더링
+        document.querySelectorAll('.card-participants .count').forEach(function(el) {
+            var base = parseInt(el.dataset.base) + Math.floor(Math.random() * 300);
+            el.textContent = base.toLocaleString() + '명 참여 중';
+        });
+
+        // 후기 캐러셀
+        var reviews = document.querySelectorAll('.review-item');
+        var reviewIdx = 0;
+        if (reviews.length > 1) {
+            setInterval(function() {
+                reviews[reviewIdx].classList.remove('active');
+                reviewIdx = (reviewIdx + 1) % reviews.length;
+                reviews[reviewIdx].classList.add('active');
+            }, 2500);
+        }
+    })();
+    </script>
 </body>
 </html>
